@@ -12,11 +12,11 @@ return [
     */
 
     // Project name. Shown in the breadcrumbs and a few other places.
-    'project_name' => 'Record Management System',
+    'project_name' => 'Maria Jose Record Management System',
 
     // Menu logos
-    'logo_lg'   => 'RecManSys',
-    'logo_mini' => 'RMS',
+    'logo_lg'   => 'Maria Jose',
+    'logo_mini' => 'MxJ',
 
     // Developer or company name. Shown in footer.
     'developer_name' => 'Denimar Fernandez',
@@ -47,7 +47,7 @@ return [
     |
     */
 
-    'registration_open' => true,
+    'registration_open' => false,
 
 
     /*
