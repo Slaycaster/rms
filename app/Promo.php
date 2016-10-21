@@ -5,21 +5,20 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
-class Customer extends Model
+class Promo extends Model
 {
-    use CrudTrait;
-
-    /*
+	use CrudTrait;
+     /*
 	-----------------------------------------------------
 		GLOBAL VARIABLES
 	-----------------------------------------------------
 	*/    
 
 	//Table name in the database
-	protected $table = 'customers';
+	protected $table = 'promos';
 	protected $primaryKey = 'id';
 	protected $hidden = 'id';
-	protected $fillable = ['customer_name', 'address', 'email', 'contact'];
+	protected $fillable = ['promo_name', 'promo_rate'];
 
 	/*
 	-----------------------------------------------------
@@ -49,5 +48,5 @@ class Customer extends Model
 	-----------------------------------------------------
 		MUTATORS
 	-----------------------------------------------------
-	*/		
+	*/	
 }

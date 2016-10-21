@@ -9,7 +9,8 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 	VALIDATION: change the requests to match your own file names if you need form validation
 ----------------------------------------------------------------------------------------------
 */
-use App\Http\Requests\BranchRequest as BranchRequest;
+use App\Http\Requests\BranchStoreRequest as BranchStoreRequest;
+use App\Http\Requests\BranchUpdateRequest as BranchUpdateRequest;
 
 class BranchController extends CrudController
 {
@@ -19,10 +20,31 @@ class BranchController extends CrudController
 		parent::__construct();
 
 		$this->crud->setModel('App\Branch');
-		$this->crud->setRoute('admin/branches');
+		$this->crud->setRoute('branches');
 		$this->crud->setEntityNameStrings('branch', 'branches');
 
-		$this->crud->setColumns(['branch_name', 'branch_address']);
+		$this->crud->setColumns
+		(
+			[
+				$this->crud->addColumn
+				(
+					[
+						'name' => 'branch_name',
+						'label' => 'Branch Name',
+						'type' => 'array'
+					]
+				),
+
+				$this->crud->addColumn
+				(
+					[
+						'name' => 'branch_address',
+						'label' => 'Address',
+						'type' => 'array'
+					]
+				)
+			]
+		);
 
 		$this->crud->addField
 		(
@@ -45,11 +67,11 @@ class BranchController extends CrudController
 		);
 	}
 
-	public function store(BranchRequest $request)
+	public function store(BranchStoreRequest $request)
 	{
 		return parent::storeCrud();
 	}
-	public function update(BranchRequest $request)
+	public function update(BranchUpdateRequest $request)
 	{
 		return parent::updateCrud();
 	}

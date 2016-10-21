@@ -23,19 +23,20 @@
           <li class="treeview">
             <a href="#"><i class="fa fa-group"></i> <span>Users, Roles, Permissions</span> <i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
-              <li><a href="{{ url('admin/user') }}"><i class="fa fa-user"></i> <span>Users</span></a></li>
-              <li><a href="{{ url('admin/role') }}"><i class="fa fa-group"></i> <span>Roles</span></a></li>
-              <li><a href="{{ url('admin/permission') }}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
+              <li><a href="{{ url('user') }}"><i class="fa fa-user"></i> <span>Users</span></a></li>
+              <li><a href="{{ url('role') }}"><i class="fa fa-group"></i> <span>Roles</span></a></li>
+              <li><a href="{{ url('permission') }}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
             </ul>
           </li>
 
           <li class="treeview">
             <a href="#"><i class="fa fa-cogs"></i> <span>Manage</span> <i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
-              <li><a href="{{ url('admin/services') }}"><i class="fa fa-building-o"></i> <span>Branches</span></a></li>
-              <li><a href="{{ url('admin/services') }}"><i class="fa fa-book"></i> <span>Services</span></a></li>
-              <li><a href="{{ url('admin/servicetypes') }}"><i class="fa fa-star-half-full"></i> <span>Types of Services</span></a></li>
-              <li><a href="{{ url('admin/promos') }}"><i class="fa fa-asterisk"></i> <span>Discounts/Promos</span></a></li>
+              <li><a href="{{ url('branches') }}"><i class="fa fa-building-o"></i> <span>Branches</span></a></li>
+              <li><a href="{{ url('promos') }}"><i class="fa fa-asterisk"></i> <span>Discounts/Promos</span></a></li>
+              <li><a href="{{ url('servicetypes') }}"><i class="fa fa-star-half-full"></i> <span>Types of Services</span></a></li>
+              <li><a href="{{ url('services') }}"><i class="fa fa-book"></i> <span>Services</span></a></li>
+              <li><a href="{{ url('customers') }}"><i class="fa fa-user"></i> <span>Customers</span></a></li>
             </ul>
           </li>
 

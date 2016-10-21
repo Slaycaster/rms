@@ -4,13 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ServiceRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
+class ServicetypeStoreRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
+
     public function authorize()
     {
         //only allow updates if the user is currently logged in.
@@ -25,9 +26,7 @@ class ServiceRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     public function rules()
     {
         return [
-            'service_name' => 'required|unique:services,service_name|min:1|max:255',
-            'service_type_id' => 'required',
-            'price' => 'required'
+            'service_type_name' => 'required|unique:servicetypes,service_type_name'
         ];
     }
 }

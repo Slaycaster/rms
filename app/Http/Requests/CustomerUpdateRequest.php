@@ -4,9 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ServicetypeRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
+class CustomerUpdateRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
 {
-    /**
+     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -26,7 +26,8 @@ class ServicetypeRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     public function rules()
     {
         return [
-            'service_type_name' => 'required|unique:servicetypes,service_type_name'
+            'customer_name' => 'required',
+            'address' => 'required'
         ];
     }
 }

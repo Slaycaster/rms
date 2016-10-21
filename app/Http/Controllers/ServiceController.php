@@ -9,7 +9,8 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 	VALIDATION: change the requests to match your own file names if you need form validation
 ----------------------------------------------------------------------------------------------
 */
-use App\Http\Requests\ServiceRequest as ServiceRequest;
+use App\Http\Requests\ServiceStoreRequest as ServiceStoreRequest;
+use App\Http\Requests\ServiceUpdateRequest as ServiceUpdateRequest;
 
 class ServiceController extends CrudController
 {
@@ -18,10 +19,49 @@ class ServiceController extends CrudController
 		parent::__construct();
 
 		$this->crud->setModel('App\Service');
-		$this->crud->setRoute('admin/services');
+		$this->crud->setRoute('services');
 		$this->crud->setEntityNameStrings('service', 'services');
 
-		$this->crud->setColumns(['service_name', 'sub_description', 'service_type_id', 'price']);
+		$this->crud->setColumns
+		(
+			[
+				$this->crud->addColumn
+				(
+					[
+						'name' => 'service_name',
+						'label' => 'Service Name'
+					]
+				),
+
+				$this->crud->addColumn
+				(
+					[
+						'name' => 'sub_description',
+						'label' => 'Sub-description'
+					]
+				),
+
+				$this->crud->addColumn
+				(
+					[
+						'label' => 'Service Type (Category)',
+						'type' => 'select',
+						'name' => 'service_type_id',
+						'entity' => 'service_type',
+						'attribute' => 'service_type_name',
+						'model' => 'App\Servicetype'
+					]
+				),
+
+				$this->crud->addColumn
+				(
+					[
+						'name' => 'price',
+						'label' => 'Price'
+					]
+				)
+			]
+		);
 		$this->crud->addField
 		(
 			[
@@ -72,19 +112,18 @@ class ServiceController extends CrudController
 				'name' => 'price',
 				'label' => 'Price',
 				'type' => 'number',
-				'prefix' => '₱',
-				'suffix' => '.00'
+				'prefix' => '₱'
 			]
 		);
 	}
 
 
-	public function store(ServiceRequest $request)
+	public function store(ServiceStoreRequest $request)
 	{
 		return parent::storeCrud();
 	}
 
-	public function update(ServiceRequest $request)
+	public function update(ServiceUpdateRequest $request)
 	{
 		return parent::updateCrud();
 	}

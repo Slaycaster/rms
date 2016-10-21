@@ -9,7 +9,8 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 	VALIDATION: change the requests to match your own file names if you need form validation
 ----------------------------------------------------------------------------------------------
 */
-use App\Http\Requests\ServicetypeRequest as ServicetypeRequest;
+use App\Http\Requests\ServicetypeStoreRequest as ServicetypeStoreRequest;
+use App\Http\Requests\ServicetypeUpdateRequest as ServicetypeUpdateRequest;
 
 
 class ServicetypeController extends CrudController
@@ -19,10 +20,29 @@ class ServicetypeController extends CrudController
 		parent::__construct();
 
 		$this->crud->setModel('App\Servicetype');
-		$this->crud->setRoute('admin/servicetypes');
+		$this->crud->setRoute('servicetypes');
 		$this->crud->setEntityNameStrings('servicetype', 'servicetypes');
 
-		$this->crud->setColumns(['service_type_name', 'sub_description']);
+		$this->crud->setColumns
+		(
+			[
+				$this->crud->addColumn
+				(
+					[
+						'name' => 'service_type_name',
+						'label' => 'Service Type (Category)'
+					]
+				),
+
+				$this->crud->addColumn
+				(
+					[
+						'name' => 'sub_description',
+						'label' => 'Sub-description'
+					]
+				)
+			]
+		);
 
 		$this->crud->addField
 		(
@@ -45,12 +65,12 @@ class ServicetypeController extends CrudController
 		);
 	}
 
-	public function store(ServicetypeRequest $request)
+	public function store(ServicetypeStoreRequest $request)
 	{
 		return parent::storeCrud();
 	}
 
-	public function update(ServicetypeRequest $request)
+	public function update(ServicetypeUpdateRequest $request)
 	{
 		return parent::updateCrud();
 	}

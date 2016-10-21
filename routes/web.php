@@ -15,11 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function()
+Route::group(['middleware' => 'admin'], function()
 {
 	//Route::get('dashboard', 'Admin\AdminController@index');
 
 	CRUD::resource('servicetypes', 'ServicetypeController');
 	CRUD::resource('services', 'ServiceController');
 	CRUD::resource('branches', 'BranchController');
+	CRUD::resource('promos', 'PromoController');
+	CRUD::resource('customers', 'CustomerController');
 });
