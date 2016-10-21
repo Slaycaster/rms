@@ -15,7 +15,7 @@ return [
     'project_name' => 'Maria Jose Record Management System',
 
     // Menu logos
-    'logo_lg'   => 'Maria Jose',
+    'logo_lg'   => 'Maria & Jose',
     'logo_mini' => 'MxJ',
 
     // Developer or company name. Shown in footer.

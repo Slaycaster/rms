@@ -5,9 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
-class Customer extends Model
+class Service extends Model
 {
-    use CrudTrait;
+     use CrudTrait;
 
 	/*
 	-----------------------------------------------------
@@ -32,6 +32,11 @@ class Customer extends Model
 		RELATIONSHIPS
 	-----------------------------------------------------
 	*/	
+
+	public function service_type()
+	{
+		return $this->belongsTo('App\Servicetype', 'service_type_id', 'id');
+	}
 
 	/*
 	-----------------------------------------------------
