@@ -41,7 +41,7 @@ return [
     | Registration Open
     |--------------------------------------------------------------------------
     |
-    | Choose wether new users are allowed to register.
+    | Choose whether new users are allowed to register.
     | This will show up the Register button in the menu and allow access to the
     | Register functions in AuthController.
     |
@@ -63,7 +63,7 @@ return [
     // (you then need to setup your auth routes manually in your routes.php file)
     'setup_auth_routes' => true,
 
-    // Set this to false if you would like to skip adding the dashboard routes
+// Set this to false if you would like to skip adding the dashboard routes
     // (you then need to overwrite the login route on your AuthController)
     'setup_dashboard_routes' => true,
 
