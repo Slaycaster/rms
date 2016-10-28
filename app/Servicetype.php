@@ -18,7 +18,7 @@ class Servicetype extends Model
 	//Table name in the database
 	protected $table = 'servicetypes';
 	protected $primaryKey = 'id';
-	protected $hidden = 'id';
+	protected $hidden = ['id', 'sub_description', 'created_at', 'updated_at'];
 	protected $fillable = ['service_type_name', 'sub_description'];
 
 	/*

@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::group(['middleware' => 'admin'], function()
 {
 	//Route::get('dashboard', 'Admin\AdminController@index');
@@ -24,4 +25,7 @@ Route::group(['middleware' => 'admin'], function()
 	CRUD::resource('branches', 'BranchController');
 	CRUD::resource('promos', 'PromoController');
 	CRUD::resource('customers', 'CustomerController');
+	
+	Route::get('sales', 'SaleController@index');
+	
 });

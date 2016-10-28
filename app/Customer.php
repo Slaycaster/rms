@@ -18,7 +18,7 @@ class Customer extends Model
 	//Table name in the database
 	protected $table = 'customers';
 	protected $primaryKey = 'id';
-	protected $hidden = 'id';
+	protected $hidden = ['id', 'created_at', 'updated_at'];
 	protected $fillable = ['customer_name', 'address', 'email', 'contact'];
 
 	/*

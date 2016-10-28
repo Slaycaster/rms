@@ -40,6 +40,8 @@
             </ul>
           </li>
 
+          <li><a href="{{ url('sales') }}"><i class="fa fa-money"></i> <span>Sales</span></a></li>
+
           <li><a href="{{ url(config('backpack.base.route_prefix').'/dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
 
 

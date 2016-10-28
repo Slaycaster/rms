@@ -18,7 +18,7 @@ class Branch extends Model
 	//Table name in the database
 	protected $table = 'branches';
 	protected $primaryKey = 'id';
-	protected $hidden = 'id';
+	protected $hidden = ['id', 'created_at', 'updated_at'];
 	protected $fillable = ['branch_name', 'branch_description'];
 
 	/*

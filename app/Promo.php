@@ -17,7 +17,7 @@ class Promo extends Model
 	//Table name in the database
 	protected $table = 'promos';
 	protected $primaryKey = 'id';
-	protected $hidden = 'id';
+	protected $hidden = ['id', 'created_at', 'updated_at'];
 	protected $fillable = ['promo_name', 'promo_rate'];
 
 	/*
