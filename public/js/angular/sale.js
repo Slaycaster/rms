@@ -1,14 +1,43 @@
 app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.services = [ ];
+    $scope.servicesdata = [ ];
+    $scope.servicetypes = [ ];
+
+    
     $http.get('api/services').success(function(data) {
-        $scope.services = data;
+        $scope.servicesdata = data;
     });   
+
+    $http.get('api/servicetypes').success(function(data) {
+        $scope.servicetypes = data;
+    });
 
     $scope.saletemp = [ ];
 
-    $scope.addSaleTemp = function()
+    $scope.addServiceItem = function(serviceid)
     {
-        
+        var lookup = _.find($scope.services, {'id': serviceid});
+        $scope.saletemp.push(lookup);
+    }
+
+    $scope.removeServiceItem = function(serviceid)
+    {
+
+    }
+
+    $scope.getServicesByType = function(servicetypeid)
+    {
+        if (servicetypeid === 0) 
+        {
+            $http.get('api/services').success(function(data) {
+                $scope.services = data;
+            });   
+        } else {
+            $http.get('api/servicebytype/'+servicetypeid).success(function(data)
+            {
+                $scope.services = data;
+            });
+        }
     }
 }]);
 

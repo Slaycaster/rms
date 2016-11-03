@@ -18,3 +18,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::get('/services', 'API\APIServiceController@index');
+Route::get('/servicebytype/{id}', 'API\APIServiceController@byServiceType');
+
+Route::get('/servicetypes', 'API\APIServiceController@servicetype');
