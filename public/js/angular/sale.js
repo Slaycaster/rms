@@ -2,7 +2,7 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.services = [ ];
     $scope.servicesdata = [ ];
     $scope.servicetypes = [ ];
-
+    $scope.temptotal = 0;
     
     $http.get('api/services').success(function(data) {
         $scope.servicesdata = data;
@@ -18,11 +18,14 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
     {
         var lookup = _.find($scope.services, {'id': serviceid});
         $scope.saletemp.push(lookup);
+        $scope.temptotal += parseFloat(lookup.price);
     }
 
     $scope.removeServiceItem = function(serviceid)
     {
-
+        var lookup = _.find($scope.services, {'id': serviceid});
+        $scope.temptotal -= parseFloat(lookup.price);
+        $scope.saletemp.pop(lookup);
     }
 
     $scope.getServicesByType = function(servicetypeid)

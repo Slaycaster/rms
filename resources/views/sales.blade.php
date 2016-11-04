@@ -154,7 +154,7 @@
                                     <div class="form-group">
                                         <label for="total" class="col-sm-4 control-label">Total</label>
                                         <div class="col-sm-8">
-                                            <p class="form-control-static"><b>₱ 60.00</b></p>
+                                            <p class="form-control-static"><b>₱ <%temptotal%></b></p>
                                         </div>
                                     </div>
 
