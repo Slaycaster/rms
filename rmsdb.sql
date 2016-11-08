@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2016 at 08:32 AM
+-- Generation Time: Nov 08, 2016 at 03:10 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -33,6 +33,13 @@ CREATE TABLE `branches` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `branches`
+--
+
+INSERT INTO `branches` (`id`, `branch_name`, `branch_address`, `created_at`, `updated_at`) VALUES
+(1, 'Main Branch', 'Shav Blvd', '2016-11-06 22:19:46', '2016-11-06 22:19:46');
 
 -- --------------------------------------------------------
 
@@ -336,6 +343,7 @@ CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `branch_id` int(11) NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -346,8 +354,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Micah Castillo', 'castillo.mics@gmail.com', '$2y$10$S3NNWyPedxuOboW6SSRVJe7t6IyTDdo0JtPpSlEtB.D5E/z2shj8m', 'MAPY8XlBUQKduEtKIhvWoWbkAnXHuS97COAnGGqcK91nrUGCROkqWZ9ndvoe', '2016-10-23 10:19:50', '2016-10-23 22:35:03');
+INSERT INTO `users` (`id`, `name`, `email`, `branch_id`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Micah Castillo', 'castillo.mics@gmail.com', 1, '$2y$10$S3NNWyPedxuOboW6SSRVJe7t6IyTDdo0JtPpSlEtB.D5E/z2shj8m', 'MAPY8XlBUQKduEtKIhvWoWbkAnXHuS97COAnGGqcK91nrUGCROkqWZ9ndvoe', '2016-10-23 10:19:50', '2016-10-23 22:35:03');
 
 --
 -- Indexes for dumped tables
@@ -462,7 +470,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `customers`
 --

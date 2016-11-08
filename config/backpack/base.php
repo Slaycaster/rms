@@ -12,7 +12,7 @@ return [
     */
 
     // Project name. Shown in the breadcrumbs and a few other places.
-    'project_name' => 'Maria Jose Record Management System',
+    'project_name' => 'Maria & Jose Salon Record Management System',
 
     // Menu logos
     'logo_lg'   => 'Maria & Jose',

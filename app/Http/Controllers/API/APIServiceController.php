@@ -28,4 +28,9 @@ class APIServiceController extends Controller
     	$data = Servicetype::all();
     	return json_encode($data, JSON_PRETTY_PRINT);
     }
+
+    public function checkout()
+    {
+        
+    }
 }

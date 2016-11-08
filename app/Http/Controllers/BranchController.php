@@ -30,8 +30,7 @@ class BranchController extends CrudController
 				(
 					[
 						'name' => 'branch_name',
-						'label' => 'Branch Name',
-						'type' => 'array'
+						'label' => 'Branch Name'
 					]
 				),
 
@@ -39,8 +38,7 @@ class BranchController extends CrudController
 				(
 					[
 						'name' => 'branch_address',
-						'label' => 'Address',
-						'type' => 'array'
+						'label' => 'Address'
 					]
 				)
 			]

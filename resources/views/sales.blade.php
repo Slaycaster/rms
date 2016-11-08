@@ -66,17 +66,18 @@
                                             Invoice
                                         </label>
                                         <div class ="col-sm-9">
-                                            <input type="text" class="form-control" name="invoice" readonly/>
+                                            <% 1 | numberFixedLen:6 %>
                                         </div>
                                     </div>
-                                    
+                                    <br>
+
                                     <!-- Employee Form Group -->
                                     <div class="form-group">
                                         <label for="employee" class="col-sm-3 control-label">
                                             Employee
                                         </label>
                                         <div class = "col-sm-9">
-                                            <input type="text" class="form-control" name="employee" readonly />
+                                            <b>{{ Auth::user()->name }}</b>, {{ Auth::user()->branch->branch_name }}
                                         </div>
                                     </div>
             					</div> <!--/col-md-5-->
@@ -137,7 +138,7 @@
                                         <div class = "col-sm-8">
                                             <div class = "input-group">
                                                 <div class ="input-group-addon">₱</div>
-                                                <input type="text" class="form-control" id="amount_tendered" ng-model="amount_tendered">
+                                                <input type="text" class="form-control" value="0" id="amount_tendered" ng-model="amount_tendered" ng-change="getChange(amount_tendered)">
                                             </div>
                                         </div>
                                         <div>&nbsp;</div>
@@ -161,11 +162,19 @@
                                     <div class="form-group">
                                         <label for="change" class="col-sm-4 control-label">Change</label>
                                         <div class="col-sm-8">
-                                            <p class="form-control-static">₱ 0.00</p>
+                                            <p class="form-control-static">₱ <%change%></p>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div><!-- /sales payment -->
+
+                            <hr>
+                            <!-- Big checkout button -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a class="btn btn-success btn-block btn-sm" href="#">Proceed to checkout</a>
+                                </div>
+                            </div><!-- /checkout -->
             			</div><!--/col-md-9-->
             		</div>
             	</div>
