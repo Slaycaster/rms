@@ -18,6 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('branch_id');
             $table->dateTime('datetime');
             $table->integer('promo_id')->nullable();
+            $table->integer('user_id');
             $table->double('price')->nullable();
             $table->timestamps();
         });

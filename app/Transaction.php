@@ -18,7 +18,7 @@ class Transaction extends Model
 	protected $table = 'transactions';
 	protected $primaryKey = 'id';
 	protected $hidden = 'id';
-	protected $fillable = ['customer_id', 'branch_id', 'date', 'promo_id', 'price'];
+	protected $fillable = ['customer_id', 'branch_id', 'date', 'promo_id', 'user_id', 'price'];
 
 	/*
 	-----------------------------------------------------
@@ -45,6 +45,11 @@ class Transaction extends Model
 	public function promo()
 	{
 		return $this->belongsTo('App\Promo', 'promo_id', 'id');
+	}
+
+	public function user()
+	{
+		return $this->belongsTo('App\User', 'user_id', 'id');
 	}
 
 	/*

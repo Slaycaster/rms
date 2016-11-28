@@ -45,6 +45,14 @@ class User extends Authenticatable
      *
      **/
 
+    /*--------------------------------------------------
+                        RELATIONSHIPS
+    ---------------------------------------------------*/
+
+    public function transactions()
+    {
+        return $this->hasMany('App\Transaction', 'user_id');
+    }
     public function branch()
     {
         return $this->belongsTo('App\Branch', 'branch_id', 'id');

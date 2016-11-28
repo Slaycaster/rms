@@ -66,7 +66,7 @@
                                             Invoice
                                         </label>
                                         <div class ="col-sm-9">
-                                            <% 1 | numberFixedLen:6 %>
+                                            <% transaction_id | numberFixedLen:6 %>
                                         </div>
                                     </div>
                                     <br>
@@ -78,6 +78,9 @@
                                         </label>
                                         <div class = "col-sm-9">
                                             <b>{{ Auth::user()->name }}</b>, {{ Auth::user()->branch->branch_name }}
+                                            <!-- Hidden Input for AngularJS data retrieval purposes. -->
+                                            <input type="hidden" name="user_id" id="user_id" value="<?=Auth::user()->id?>">
+                                            <input type="hidden" name="branch_id" id="branch_ids" value="<?=Auth::user()->branch->id?>">
                                         </div>
                                     </div>
             					</div> <!--/col-md-5-->
@@ -172,7 +175,7 @@
                             <!-- Big checkout button -->
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a class="btn btn-success btn-block btn-sm" href="#">Proceed to checkout</a>
+                                    <a class="btn btn-success btn-block btn-sm" href="#" ng-click="proceedToCheckout()">Proceed to checkout</a>
                                 </div>
                             </div><!-- /checkout -->
             			</div><!--/col-md-9-->

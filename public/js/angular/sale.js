@@ -17,9 +17,15 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
     ----------------------------------------------------*/
     $scope.servicetypes = [ ];
 
+    /*----------------------------------------------------
+            Holds services added to 'cart'
+    ----------------------------------------------------*/
+    $scope.saletemp = [ ];
+    
     $scope.temptotal = 0;
     $scope.amount_tendered = 0;
     $scope.change = 0;
+    $scope.transaction_id = 0;
     
     $http.get('api/services').success(function(data) {
         $scope.servicesdata = data;
@@ -28,8 +34,15 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
     $http.get('api/servicetypes').success(function(data) {
         $scope.servicetypes = data;
     });
+    
+    $scope.init = function()
+    {
+        $scope.saletemp = [ ];
+        $http.get('api/transactions/max').success(function(data) {
+            $scope.transaction_id = parseInt(data.max_transaction_id) + 1;
+        });
+    }
 
-    $scope.saletemp = [ ];
 
     $scope.addServiceItem = function(serviceid)
     {
@@ -75,4 +88,18 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
     {
         $scope.change = parseFloat(amount_tendered-$scope.temptotal);
     }
+
+    $scope.proceedToCheckout = function()
+    {
+       $http.post('api/transactions/save', {
+            customer_id: 1,
+            branch_id: document.getElementById('branch_id').value,
+            user_id: document.getElementById('user_id').value,
+            price: $scope.temptotal
+       }).success(function(data, status, headers, config, response) {
+            console.log(response);
+       });
+    }
+
+    $scope.init();
 }]);

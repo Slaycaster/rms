@@ -26,6 +26,5 @@ Route::group(['middleware' => 'admin'], function()
 	CRUD::resource('promos', 'PromoController');
 	CRUD::resource('customers', 'CustomerController');
 	
-	Route::get('sales', 'SaleController@index');
-	
+	Route::get('sales', 'SaleController@index');	
 });
