@@ -80,7 +80,7 @@
                                             <b>{{ Auth::user()->name }}</b>, {{ Auth::user()->branch->branch_name }}
                                             <!-- Hidden Input for AngularJS data retrieval purposes. -->
                                             <input type="hidden" name="user_id" id="user_id" value="<?=Auth::user()->id?>">
-                                            <input type="hidden" name="branch_id" id="branch_ids" value="<?=Auth::user()->branch->id?>">
+                                            <input type="hidden" name="branch_id" id="branch_id" value="<?=Auth::user()->branch->id?>">
                                         </div>
                                     </div>
             					</div> <!--/col-md-5-->

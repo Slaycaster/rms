@@ -41,8 +41,10 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
         $http.get('api/transactions/max').success(function(data) {
             $scope.transaction_id = parseInt(data.max_transaction_id) + 1;
         });
+        $scope.temptotal = 0;
+        $scope.amount_tendered = 0;
+        $scope.change = 0;
     }
-
 
     $scope.addServiceItem = function(serviceid)
     {
@@ -92,13 +94,15 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.proceedToCheckout = function()
     {
        $http.post('api/transactions/save', {
+            sales: $scope.saletemp,
             customer_id: 1,
             branch_id: document.getElementById('branch_id').value,
             user_id: document.getElementById('user_id').value,
             price: $scope.temptotal
        }).success(function(data, status, headers, config, response) {
-            console.log(response);
-       });
+            console.log(data);
+            window.location.reload(true);
+       });  
     }
 
     $scope.init();
