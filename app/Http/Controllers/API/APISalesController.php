@@ -23,9 +23,10 @@ class APISalesController extends Controller
     		Save the current transaction to the database
     	---------------------------------------------------*/
     	$transaction = new Transaction();
-    	$transaction->customer_id = Request::input('customer_id');
+    	$transaction->customer = Request::input('customer');
     	$transaction->branch_id = Request::input('branch_id');
     	$transaction->price = Request::input('price');
+        $transaction->user_id = Request::input('user_id');
     	$transaction->save();
 
         //Query the if of the recently saved Transaction

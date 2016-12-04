@@ -17,8 +17,8 @@ class Transaction extends Model
 	//Table name in the database
 	protected $table = 'transactions';
 	protected $primaryKey = 'id';
-	protected $hidden = 'id';
-	protected $fillable = ['customer_id', 'branch_id', 'date', 'promo_id', 'user_id', 'price'];
+	//protected $hidden = ['id'];
+	protected $fillable = ['customer_id', 'branch_id', 'promo_id', 'price'];
 
 	/*
 	-----------------------------------------------------
@@ -50,6 +50,11 @@ class Transaction extends Model
 	public function user()
 	{
 		return $this->belongsTo('App\User', 'user_id', 'id');
+	}
+
+	public function sales()
+	{
+		return $this->hasMany('App\Sale', 'transaction_id');
 	}
 
 	/*

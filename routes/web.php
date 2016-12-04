@@ -20,11 +20,16 @@ Route::group(['middleware' => 'admin'], function()
 {
 	//Route::get('dashboard', 'Admin\AdminController@index');
 
-	CRUD::resource('servicetypes', 'ServicetypeController');
-	CRUD::resource('services', 'ServiceController');
-	CRUD::resource('branches', 'BranchController');
-	CRUD::resource('promos', 'PromoController');
-	CRUD::resource('customers', 'CustomerController');
+	Route::group(['middleware' => ['role:Administrator']], function () {
+		CRUD::resource('servicetypes', 'ServicetypeController');
+		CRUD::resource('services', 'ServiceController');
+		CRUD::resource('branches', 'BranchController');
+		CRUD::resource('promos', 'PromoController');
+		CRUD::resource('customers', 'CustomerController');
+	});
 	
 	Route::get('sales', 'SaleController@index');	
+	Route::get('reports', 'ReportsController@index');
+	Route::get('reports/sales/today', 'ReportsController@today');
+	Route::get('reports/sales/branch', 'ReportsController@branch');
 });

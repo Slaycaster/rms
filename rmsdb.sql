@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.4.12
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2016 at 03:10 AM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.23
+-- Generation Time: Dec 04, 2016 at 01:41 PM
+-- Server version: 5.6.25
+-- PHP Version: 5.6.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,13 +26,13 @@ SET time_zone = "+00:00";
 -- Table structure for table `branches`
 --
 
-CREATE TABLE `branches` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `branches` (
+  `id` int(10) unsigned NOT NULL,
   `branch_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `branch_address` text COLLATE utf8_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `branches`
@@ -47,15 +47,15 @@ INSERT INTO `branches` (`id`, `branch_name`, `branch_address`, `created_at`, `up
 -- Table structure for table `customers`
 --
 
-CREATE TABLE `customers` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `customers` (
+  `id` int(10) unsigned NOT NULL,
   `customer_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `contact` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `customers`
@@ -70,11 +70,11 @@ INSERT INTO `customers` (`id`, `customer_name`, `address`, `email`, `contact`, `
 -- Table structure for table `migrations`
 --
 
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `id` int(10) unsigned NOT NULL,
   `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -98,7 +98,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- Table structure for table `password_resets`
 --
 
-CREATE TABLE `password_resets` (
+CREATE TABLE IF NOT EXISTS `password_resets` (
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
@@ -110,12 +110,21 @@ CREATE TABLE `password_resets` (
 -- Table structure for table `permissions`
 --
 
-CREATE TABLE `permissions` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `permissions` (
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Manage Master Entries', '2016-12-04 02:43:06', '2016-12-04 02:43:06'),
+(2, 'Transact Sales', '2016-12-04 02:43:40', '2016-12-04 02:43:40'),
+(3, 'Generate Reports', '2016-12-04 02:43:48', '2016-12-04 02:43:48');
 
 -- --------------------------------------------------------
 
@@ -123,10 +132,21 @@ CREATE TABLE `permissions` (
 -- Table structure for table `permission_roles`
 --
 
-CREATE TABLE `permission_roles` (
-  `permission_id` int(10) UNSIGNED NOT NULL,
-  `role_id` int(10) UNSIGNED NOT NULL
+CREATE TABLE IF NOT EXISTS `permission_roles` (
+  `permission_id` int(10) unsigned NOT NULL,
+  `role_id` int(10) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `permission_roles`
+--
+
+INSERT INTO `permission_roles` (`permission_id`, `role_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(2, 2),
+(3, 2);
 
 -- --------------------------------------------------------
 
@@ -134,9 +154,9 @@ CREATE TABLE `permission_roles` (
 -- Table structure for table `permission_users`
 --
 
-CREATE TABLE `permission_users` (
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `permission_id` int(10) UNSIGNED NOT NULL
+CREATE TABLE IF NOT EXISTS `permission_users` (
+  `user_id` int(10) unsigned NOT NULL,
+  `permission_id` int(10) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -145,8 +165,8 @@ CREATE TABLE `permission_users` (
 -- Table structure for table `promos`
 --
 
-CREATE TABLE `promos` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `promos` (
+  `id` int(10) unsigned NOT NULL,
   `promo_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `promo_rate` double NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -159,12 +179,20 @@ CREATE TABLE `promos` (
 -- Table structure for table `roles`
 --
 
-CREATE TABLE `roles` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Administrator', '2016-12-04 02:44:14', '2016-12-04 02:44:14'),
+(2, 'Cashier', '2016-12-04 02:44:22', '2016-12-04 02:44:22');
 
 -- --------------------------------------------------------
 
@@ -172,10 +200,18 @@ CREATE TABLE `roles` (
 -- Table structure for table `role_users`
 --
 
-CREATE TABLE `role_users` (
-  `role_id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL
+CREATE TABLE IF NOT EXISTS `role_users` (
+  `role_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `role_users`
+--
+
+INSERT INTO `role_users` (`role_id`, `user_id`) VALUES
+(1, 1),
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -183,15 +219,25 @@ CREATE TABLE `role_users` (
 -- Table structure for table `sales`
 --
 
-CREATE TABLE `sales` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `sales` (
+  `id` int(10) unsigned NOT NULL,
   `service_id` int(11) NOT NULL,
   `transaction_id` int(11) NOT NULL,
   `price` double NOT NULL,
   `promo_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `sales`
+--
+
+INSERT INTO `sales` (`id`, `service_id`, `transaction_id`, `price`, `promo_id`, `created_at`, `updated_at`) VALUES
+(1, 4, 1, 60, NULL, '2016-12-03 18:35:29', '2016-12-03 18:35:29'),
+(2, 72, 2, 300, NULL, '2016-12-04 02:35:15', '2016-12-04 02:35:15'),
+(3, 28, 3, 350, NULL, '2016-12-04 03:26:46', '2016-12-04 03:26:46'),
+(4, 26, 3, 200, NULL, '2016-12-04 03:26:46', '2016-12-04 03:26:46');
 
 -- --------------------------------------------------------
 
@@ -199,15 +245,15 @@ CREATE TABLE `sales` (
 -- Table structure for table `services`
 --
 
-CREATE TABLE `services` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `services` (
+  `id` int(10) unsigned NOT NULL,
   `service_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `sub_description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `service_type_id` int(11) NOT NULL,
   `price` double NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `services`
@@ -295,13 +341,13 @@ INSERT INTO `services` (`id`, `service_name`, `sub_description`, `service_type_i
 -- Table structure for table `servicetypes`
 --
 
-CREATE TABLE `servicetypes` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `servicetypes` (
+  `id` int(10) unsigned NOT NULL,
   `service_type_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `sub_description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `servicetypes`
@@ -322,16 +368,25 @@ INSERT INTO `servicetypes` (`id`, `service_type_name`, `sub_description`, `creat
 -- Table structure for table `transactions`
 --
 
-CREATE TABLE `transactions` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `customer_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `transactions` (
+  `id` int(10) unsigned NOT NULL,
+  `customer` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `branch_id` int(11) NOT NULL,
-  `datetime` datetime NOT NULL,
   `promo_id` int(11) DEFAULT NULL,
   `price` double DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `customer`, `branch_id`, `promo_id`, `price`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'Denimar', 1, NULL, 60, 1, '2016-12-03 18:35:29', '2016-12-03 18:35:29'),
+(2, 'Denden', 1, NULL, 300, 1, '2016-12-04 02:35:15', '2016-12-04 02:35:15'),
+(3, 'MM', 1, NULL, 550, 2, '2016-12-04 03:26:46', '2016-12-04 03:26:46');
 
 -- --------------------------------------------------------
 
@@ -339,8 +394,8 @@ CREATE TABLE `transactions` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `branch_id` int(11) NOT NULL,
@@ -348,14 +403,15 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `branch_id`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Micah Castillo', 'castillo.mics@gmail.com', 1, '$2y$10$S3NNWyPedxuOboW6SSRVJe7t6IyTDdo0JtPpSlEtB.D5E/z2shj8m', 'MAPY8XlBUQKduEtKIhvWoWbkAnXHuS97COAnGGqcK91nrUGCROkqWZ9ndvoe', '2016-10-23 10:19:50', '2016-10-23 22:35:03');
+(1, 'Micah Castillo', 'castillo.mics@gmail.com', 1, '$2y$10$PC7c92UtUVd8l9c69ppdiuZPJPUBuF/UM6uius.eOm8SosSQJTfBK', 'WBDRpewQJavCcUzGE81dGx5MinfhfUYZ76DaLD9zgw7ACruOfKQxWcqJFzN2', '2016-10-23 10:19:50', '2016-12-04 03:24:47'),
+(2, 'Juan Dela Cruz', 'jcdelacruz@gmail.com', 1, '$2y$10$IqRScIVQYxz4QjeNGS.jE.BZrJjTa7yX0ZUiwy7XSldGkOCt4iSfO', 'HchYGD7omL5pBZvq5wavuhYNaXJu9oWDi7EZOlAxESdHjaksrDadXNj5HiqN', '2016-12-04 03:06:01', '2016-12-04 04:29:22');
 
 --
 -- Indexes for dumped tables
@@ -470,57 +526,57 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `promos`
 --
 ALTER TABLE `promos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=75;
 --
 -- AUTO_INCREMENT for table `servicetypes`
 --
 ALTER TABLE `servicetypes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --

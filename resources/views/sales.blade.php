@@ -93,7 +93,7 @@
                                             Customer
                                         </label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="customer" readonly/>
+                                            <input type="text" class="form-control" name="customer" id="customer"/>
                                         </div>
                                     </div>
 

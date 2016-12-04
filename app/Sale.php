@@ -18,7 +18,7 @@ class Sale extends Model
 	//Table name in the database
 	protected $table = 'sales';
 	protected $primaryKey = 'id';
-	protected $hidden = 'id';
+	protected $hidden = ['id'];
 	protected $fillable = ['service_id', 'transaction_id', 'promo_id', 'price'];
 
 	/*

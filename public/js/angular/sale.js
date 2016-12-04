@@ -95,7 +95,7 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
     {
        $http.post('api/transactions/save', {
             sales: $scope.saletemp,
-            customer_id: 1,
+            customer: document.getElementById('customer').value,
             branch_id: document.getElementById('branch_id').value,
             user_id: document.getElementById('user_id').value,
             price: $scope.temptotal

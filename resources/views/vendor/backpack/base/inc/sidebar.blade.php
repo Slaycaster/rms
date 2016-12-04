@@ -16,6 +16,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
           <li class="header">{{ trans('backpack::base.administration') }}</li>
+          @role('Administrator')
           <!-- ================================================ -->
           <!-- ==== Recommended place for admin menu items ==== -->
           <!-- ================================================ -->
@@ -28,7 +29,6 @@
               <li><a href="{{ url('admin/permission') }}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
             </ul>
           </li>
-
           <li class="treeview">
             <a href="#"><i class="fa fa-cogs"></i> <span>Manage</span> <i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
@@ -36,20 +36,17 @@
               <li><a href="{{ url('promos') }}"><i class="fa fa-asterisk"></i> <span>Discounts/Promos</span></a></li>
               <li><a href="{{ url('servicetypes') }}"><i class="fa fa-star-half-full"></i> <span>Types of Services</span></a></li>
               <li><a href="{{ url('services') }}"><i class="fa fa-book"></i> <span>Services</span></a></li>
+              <!--
               <li><a href="{{ url('customers') }}"><i class="fa fa-user"></i> <span>Customers</span></a></li>
+            -->
             </ul>
           </li>
-
-          <li><a href="{{ url('sales') }}"><i class="fa fa-money"></i> <span>Sales</span></a></li>
-
-          <li class="treeview">
-            <a href="#"><i class="fa fa-document"></i> <span>Reports</span> <i class="fa fa-angle-left pull-right"></i></a>
-            <ul class="treeview-menu">
-              <li><a href="{{ url('reports/sales') }}"><i class="fa fa-building-o"></i> <span>Sales Report</span></a></li>
-            </ul>
-          </li>
-
+          @endrole
+          
           <li><a href="{{ url(config('backpack.base.route_prefix').'/dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
+          <li><a href="{{ url('sales') }}"><i class="fa fa-money"></i> <span>Sales</span></a></li>
+          <li><a href="{{ url('reports') }}"><i class="fa fa-download"></i> <span>Reports</span></a></li>
+
 
 
           <!-- ======================================= -->
