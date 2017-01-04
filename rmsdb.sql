@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 04, 2017 at 01:19 AM
+-- Generation Time: Jan 04, 2017 at 08:29 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -91,7 +91,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2016_10_21_140550_create_promos_table', 1),
 (8, '2016_10_21_153704_create_customers_table', 1),
 (9, '2016_10_27_024104_create_transactions_table', 2),
-(10, '2016_10_27_025217_create_sales_table', 2);
+(10, '2016_10_27_025217_create_sales_table', 2),
+(12, '2017_01_04_001314_create_stylists_table', 3);
 
 -- --------------------------------------------------------
 
@@ -368,6 +369,33 @@ INSERT INTO `servicetypes` (`id`, `service_type_name`, `sub_description`, `creat
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `stylists`
+--
+
+CREATE TABLE `stylists` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `stylist_last_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `stylist_first_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `stylist_middle_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `stylist_address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `stylist_contact_no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `stylist_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `date_hired` date NOT NULL,
+  `branch_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `stylists`
+--
+
+INSERT INTO `stylists` (`id`, `stylist_last_name`, `stylist_first_name`, `stylist_middle_name`, `stylist_address`, `stylist_contact_no`, `stylist_email`, `date_hired`, `branch_id`, `created_at`, `updated_at`) VALUES
+(1, 'Fleuret', 'Lunafreya', 'Nox', 'Cosmos Bldg., Quezon City', '09268914415', 'lnfleuret@gmail.com', '2016-12-20', '1', '2017-01-03 19:01:00', '2017-01-03 19:01:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `transactions`
 --
 
@@ -376,6 +404,7 @@ CREATE TABLE `transactions` (
   `customer` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `branch_id` int(11) NOT NULL,
   `promo_id` int(11) DEFAULT NULL,
+  `stylist_id` int(11) NOT NULL,
   `price` double DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -386,10 +415,10 @@ CREATE TABLE `transactions` (
 -- Dumping data for table `transactions`
 --
 
-INSERT INTO `transactions` (`id`, `customer`, `branch_id`, `promo_id`, `price`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'Den', 1, NULL, 4600, 1, '2016-11-30 06:04:09', '2016-11-30 06:04:09'),
-(2, 'Ned', 1, NULL, 850, 1, '2016-12-13 08:56:04', '2016-12-13 08:56:04'),
-(3, 'Luna', 1, NULL, 1050, 1, '2016-12-13 19:20:37', '2016-12-13 19:20:37');
+INSERT INTO `transactions` (`id`, `customer`, `branch_id`, `promo_id`, `stylist_id`, `price`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'Den', 1, NULL, 1, 4600, 1, '2016-11-30 06:04:09', '2016-11-30 06:04:09'),
+(2, 'Ned', 1, NULL, 1, 850, 1, '2016-12-13 08:56:04', '2016-12-13 08:56:04'),
+(3, 'Luna', 1, NULL, 1, 1050, 1, '2016-12-13 19:20:37', '2016-12-13 19:20:37');
 
 -- --------------------------------------------------------
 
@@ -508,6 +537,12 @@ ALTER TABLE `servicetypes`
   ADD UNIQUE KEY `servicetypes_service_type_name_unique` (`service_type_name`);
 
 --
+-- Indexes for table `stylists`
+--
+ALTER TABLE `stylists`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `transactions`
 --
 ALTER TABLE `transactions`
@@ -538,7 +573,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
@@ -569,6 +604,11 @@ ALTER TABLE `services`
 --
 ALTER TABLE `servicetypes`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `stylists`
+--
+ALTER TABLE `stylists`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
