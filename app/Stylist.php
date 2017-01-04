@@ -5,9 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
-class Transaction extends Model
+class Stylist extends Model
 {
     use CrudTrait;
+
     /*
 	-----------------------------------------------------
 		GLOBAL VARIABLES
@@ -15,10 +16,10 @@ class Transaction extends Model
 	*/    
 
 	//Table name in the database
-	protected $table = 'transactions';
+	protected $table = 'stylists';
 	protected $primaryKey = 'id';
-	//protected $hidden = ['id'];
-	protected $fillable = ['customer_id', 'branch_id', 'promo_id', 'stylist_id', 'user_id', 'price'];
+	protected $hidden = ['created_at', 'updated_at'];
+	protected $fillable = ['stylist_last_name', 'stylist_first_name', 'stylist_middle_name', 'stylist_address', 'stylist_contact_no', 'stylist_email', 'date_hired', 'branch_id'];
 
 	/*
 	-----------------------------------------------------
@@ -32,34 +33,14 @@ class Transaction extends Model
 	-----------------------------------------------------
 	*/	
 
-	public function customer()
-	{
-		return $this->belongsTo('App\Customer', 'customer_id', 'id');
-	}
-
 	public function branch()
 	{
 		return $this->belongsTo('App\Branch', 'branch_id', 'id');
 	}
 
-	public function promo()
+	public function transactions()
 	{
-		return $this->belongsTo('App\Promo', 'promo_id', 'id');
-	}
-
-	public function stylist()
-	{
-		return $this->belongsTo('App\Stylist', 'stylist_id', 'id');
-	}
-
-	public function user()
-	{
-		return $this->belongsTo('App\User', 'user_id', 'id');
-	}
-
-	public function sales()
-	{
-		return $this->hasMany('App\Sale', 'transaction_id');
+		return $this->hasMany('App\Transactions', 'stylist_id');
 	}
 
 	/*

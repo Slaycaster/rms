@@ -23,6 +23,7 @@ Route::group(['middleware' => 'admin'], function()
 	Route::group(['middleware' => ['role:Administrator']], function () {
 		CRUD::resource('servicetypes', 'ServicetypeController');
 		CRUD::resource('services', 'ServiceController');
+		CRUD::resource('stylists', 'StylistController');
 		CRUD::resource('branches', 'BranchController');
 		CRUD::resource('promos', 'PromoController');
 		CRUD::resource('customers', 'CustomerController');

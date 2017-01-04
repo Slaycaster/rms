@@ -174,7 +174,7 @@
                                     <div class="form-group">
                                         <label for="stylist" class="col-sm-4 control-label">Stylist</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="stylist" id="stylist" />
+                                            {{ Form::select('stylist_id', $stylists, null, ['class' => 'form-control', 'id' => 'stylist_id']) }}
                                         </div>
                                     </div>
                                 </div>

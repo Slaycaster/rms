@@ -27,6 +27,7 @@ class APISalesController extends Controller
     	$transaction->branch_id = Request::input('branch_id');
     	$transaction->price = Request::input('price');
         $transaction->user_id = Request::input('user_id');
+        $transaction->stylist_id = Request::input('stylist_id');
     	$transaction->save();
 
         //Query the if of the recently saved Transaction
