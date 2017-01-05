@@ -13,6 +13,8 @@ use App\Transaction;
 						->where('branch_id', '=', $branch_id) 
 						->with('branch')
 						->with('sales')
+						->with('user')
+						->with('stylist')
 						->with('sales.service')
 						->get();
 
@@ -101,6 +103,7 @@ use App\Transaction;
 		    		<td>Customer</td>
 		    		<td>Sales</td>
 		    		<td>Total Price</td>
+		    		<td>Stylist</td>
 		    		<td>Cashier</td>
 	    		</tr>
 	    	</thead>
@@ -135,6 +138,7 @@ use App\Transaction;
 		    			<?php
 		    				$total_price += $transaction->price;
 		    			?>
+		    			<td>{{ $transaction->stylist->stylist_last_name }}, {{ $transaction->stylist->stylist_first_name }}</td>
 		    			<td>{{$transaction->user->name}}</td>
 		    		</tr>
 		    	@endforeach

@@ -178,6 +178,15 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="stylist" class="col-sm-4 control-label">Promo</label>
+                                        <div class="col-sm-8">
+                                            {{ Form::select('promo_id', $promos, null, ['class' => 'form-control', 'id' => 'promo_id']) }}
+                                        </div>
+                                    </div>
+                                </div>
                             </div><!-- /sales payment -->
 
                             <hr>

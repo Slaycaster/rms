@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 04, 2017 at 08:29 AM
+-- Generation Time: Jan 05, 2017 at 01:15 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -176,6 +176,14 @@ CREATE TABLE `promos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `promos`
+--
+
+INSERT INTO `promos` (`id`, `promo_name`, `promo_rate`, `created_at`, `updated_at`) VALUES
+(1, '10% discount', 10, '2017-01-04 04:56:00', '2017-01-04 04:56:00'),
+(2, 'Senior Citizen Discount', 20, '2017-01-04 04:56:14', '2017-01-04 04:56:14');
 
 -- --------------------------------------------------------
 
@@ -583,7 +591,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `promos`
 --
 ALTER TABLE `promos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `roles`
 --

@@ -37,7 +37,7 @@
 					<h4><span class = "fa fa-clock-o"></span> Sales for Today</h4>
 					<hr>
 					<form method="get" action="{{url('reports/sales/today')}}" target="_blank">
-						<input type="hidden" name="date" value="<?=$today?>">
+						<input type="hidden" name="date" value="<?=$today; ?>">
 						<button type="submit" class="btn btn-primary btn-block">View</a>
 					</form>
 				</div>

@@ -38,7 +38,7 @@ class PromoController extends CrudController
 		    	(
 		    		[
 		    			'name' => 'promo_rate',
-		    			'label' => 'Promo Rate'
+		    			'label' => 'Promo Rate (in %)'
 		    		]
 		    	)
     		]
