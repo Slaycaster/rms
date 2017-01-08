@@ -164,7 +164,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Backpack\CRUD\CrudServiceProvider::class,
         Backpack\PermissionManager\PermissionManagerServiceProvider::class,
-        Laracasts\Generators\GeneratorsServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
