@@ -10,6 +10,16 @@ use App\Transaction;
   $transactions = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
             ->count();
 
+  $sales = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
+          ->get();
+
+  $total_sales = 0;
+
+  foreach ($sales as $sale)
+  {
+    $total_sales += $sale->price;
+  }
+
 ?>
 
 @extends('backpack::layout')
@@ -33,12 +43,25 @@ use App\Transaction;
           <div class="small-box bg-aqua">
             <div class="inner">
               <h3>{{$transactions}}</h3>
-              <p>Transactions of the Day</p>
+              <p>Transactions for the Day</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <!--<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>-->
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="small-box bg-purple">
+            <div class="inner">
+              <h3>₱ {{$total_sales}}</h3>
+              <p>Total Sales for the Day</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-cash"></i>
+            </div>
+            <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>-->
           </div>
         </div>
         <!--
@@ -51,6 +74,6 @@ use App\Transaction;
                 <div class="box-body">{{ trans('backpack::base.logged_in') }}</div>
             </div>
         </div>
-      -->
+        -->
     </div>
 @endsection

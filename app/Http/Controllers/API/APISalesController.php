@@ -37,7 +37,7 @@ class APISalesController extends Controller
             $discount_rate = $promo->promo_rate * .01;
             $discounted_price = Request::input('price') - (Request::input('price') * $discount_rate);
             //Save to DB
-            $transaction->price = $discount_price; 
+            $transaction->price = $discounted_price; 
         }
         else
         {

@@ -99,6 +99,7 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
             branch_id: document.getElementById('branch_id').value,
             user_id: document.getElementById('user_id').value,
             stylist_id: document.getElementById('stylist_id').value,
+            promo_id: document.getElementById('promo_id').value,
             price: $scope.temptotal
        }).success(function(data, status, headers, config, response) {
             console.log(data);
