@@ -1,7 +1,7 @@
 /node_modules
 /public/storage
 /vendor
-!/vendor/backpack
+!/vendor/backpack/permissionmanager/src/app/Http/Controllers/*
 /.idea
 Homestead.json
 Homestead.yaml
