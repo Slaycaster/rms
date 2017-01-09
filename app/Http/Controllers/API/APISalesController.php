@@ -29,6 +29,7 @@ class APISalesController extends Controller
         $transaction->user_id = Request::input('user_id');
         $transaction->stylist_id = Request::input('stylist_id');
         $transaction->promo_id = Request::input('promo_id');
+        $transaction->items = Request::input('items');
 
         if (Request::input('promo_id') != 0)
         {

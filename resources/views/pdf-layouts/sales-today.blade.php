@@ -7,10 +7,13 @@ use App\Transaction;
 
 	$timestamp = time()+date("Z");
 	$today = gmdate("Y/m/d",$timestamp);
-
+	$branch_id = Session::get('branch_id', 1);
 	$transactions = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
+						->where('branch_id', '=', $branch_id) 
 						->with('branch')
 						->with('sales')
+						->with('user')
+						->with('stylist')
 						->with('sales.service')
 						->get();
 
@@ -90,16 +93,18 @@ use App\Transaction;
 	        <normal style="font-size: 18px">Maria & Jose Salon</normal>
 	        <br>
 	        <strong>SALES REPORT<br>{{$today}}</strong>
+	        <br>
+	        <normal style="font-size: 16px">{{$transaction->branch->branch_name}}</normal>
 	    </p>
 
 	    <table border="1" width="520">
 	    	<thead>
 	    		<tr>
 		    		<td>#</td>
-		    		<td>Branch</td>
 		    		<td>Customer</td>
 		    		<td>Sales</td>
 		    		<td>Total Price</td>
+		    		<td>Stylist</td>
 		    		<td>Cashier</td>
 	    		</tr>
 	    	</thead>
@@ -110,7 +115,6 @@ use App\Transaction;
 		    			<?php
 		    				$total_transaction += 1;
 		    			?>
-		    			<td>{{$transaction->branch->branch_name}}</td>
 		    			<td>{{$transaction->customer}}</td>
 		    			<td>
 		    				<table border="1" width="100%">
@@ -135,6 +139,7 @@ use App\Transaction;
 		    			<?php
 		    				$total_price += $transaction->price;
 		    			?>
+		    			<td>{{ $transaction->stylist->stylist_last_name }}, {{ $transaction->stylist->stylist_first_name }}</td>
 		    			<td>{{$transaction->user->name}}</td>
 		    		</tr>
 		    	@endforeach

@@ -20,6 +20,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('stylist_id');
             $table->integer('user_id');
             $table->double('price')->nullable();
+            $table->text('items')->nullable();
             $table->timestamps();
         });
     }

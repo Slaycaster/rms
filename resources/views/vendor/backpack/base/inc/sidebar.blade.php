@@ -11,6 +11,7 @@
           <div class="pull-left info">
             <p>{{ Auth::user()->name }}</p>
             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            <a href="#"><i class="fa fa-circle text-primary"></i> {{ Auth::user()->branch->branch_name }}</a>
           </div>
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->

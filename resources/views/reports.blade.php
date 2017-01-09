@@ -38,6 +38,7 @@
 					<hr>
 					<form method="get" action="{{url('reports/sales/today')}}" target="_blank">
 						<input type="hidden" name="date" value="<?=$today; ?>">
+						<input type="hidden" name="branch_id" value="<?= Auth::user()->branch->id; ?>">
 						<button type="submit" class="btn btn-primary btn-block">View</a>
 					</form>
 				</div>

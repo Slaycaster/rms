@@ -21,6 +21,7 @@ class ReportsController extends Controller
     public function today()
     {
     	//$sales = Transaction::whereBetween('created_at', [$date . ' 00:00:00', $date . ' 23:59:59'])->with('sales')->get();
+        Session::put('branch_id', Request::input('branch_id'));
     	$pdf = PDF::loadView('pdf-layouts.sales-today')->setPaper('Letter');
     	$pdf->output();
 		$dom_pdf = $pdf->getDomPDF();

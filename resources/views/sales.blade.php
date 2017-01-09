@@ -79,7 +79,7 @@
                                         <div class = "col-sm-9">
                                             <b>{{ Auth::user()->name }}</b>, {{ Auth::user()->branch->branch_name }}
                                             <!-- Hidden Input for AngularJS data retrieval purposes. -->
-                                            <input type="hidden" name="user_id" id="user_id" value="<?=Auth::user()->id?>">
+                                            <input type="hidden" name="user_id" id="user_id" value="<?=Auth::user()->id; ?>">
                                             <input type="hidden" name="branch_id" id="branch_id" value="<?=Auth::user()->branch->id; ?>">
                                         </div>
                                     </div>
@@ -146,9 +146,9 @@
                                         </div>
                                         <div>&nbsp;</div>
                                         <div class="form-group">
-                                            <label for="comments" class="col-sm-4 control-label">Comments</label>
+                                            <label for="items" class="col-sm-4 control-label">Items</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="comments" id="comments" />
+                                                <input type="text" class="form-control" name="items" id="items" />
                                             </div>
                                         </div>
                                     </div>
