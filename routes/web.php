@@ -21,6 +21,7 @@ Route::group(['middleware' => 'admin'], function()
 	//Route::get('dashboard', 'Admin\AdminController@index');
 
 	Route::group(['middleware' => ['role:Administrator']], function () {
+		CRUD::resource('user', 'UserCrudController');
 		CRUD::resource('servicetypes', 'ServicetypeController');
 		CRUD::resource('services', 'ServiceController');
 		CRUD::resource('stylists', 'StylistController');
