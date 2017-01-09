@@ -163,7 +163,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Backpack\CRUD\CrudServiceProvider::class,
-        Backpack\PermissionManager\PermissionManagerServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
@@ -180,6 +179,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Backpack\PermissionManager\PermissionManagerServiceProvider::class,
 
     ],
 

@@ -1,7 +1,7 @@
 /node_modules
 /public/storage
 /vendor
-!/vendor/backpack/permissionmanager/src/app/Http/Controllers/*
+!/vendor/backpack/permissionmanager/src/app/Http/Controllers/UserCrudController.php
 /.idea
 Homestead.json
 Homestead.yaml
