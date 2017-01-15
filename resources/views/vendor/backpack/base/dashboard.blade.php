@@ -8,9 +8,11 @@ use App\Transaction;
   $today = gmdate("Y/m/d",$timestamp);
 
   $transactions = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
+            ->where('branch_id', '=', Auth::user()->branch->id)
             ->count();
 
   $sales = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
+          ->where('branch_id', '=', Auth::user()->branch->id)
           ->get();
 
   $total_sales = 0;
@@ -38,6 +40,7 @@ use App\Transaction;
 
 
 @section('content')
+    <h3>{{ Auth::user()->branch->branch_name }}</h3>
     <div class="row">
         <div class="col-md-4">
           <div class="small-box bg-aqua">
