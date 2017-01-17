@@ -25,5 +25,5 @@ Route::get('/servicetypes', 'API\APIServiceController@servicetype');
 /*-------------------------------------------------------------------------
 		
 --------------------------------------------------------------------------*/
-Route::get('/transactions/max', 'API\APISalesController@getTransactionNumber');
+Route::get('/transactions/max/{id}', 'API\APISalesController@getTransactionNumber');
 Route::post('/transactions/save', 'API\APISalesController@transactionCheckout');

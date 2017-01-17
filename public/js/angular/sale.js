@@ -38,7 +38,7 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.init = function()
     {
         $scope.saletemp = [ ];
-        $http.get('api/transactions/max').success(function(data) {
+        $http.get('api/transactions/max/' + document.getElementById('branch_id').value).success(function(data) {
             $scope.transaction_id = parseInt(data.max_transaction_id) + 1;
         });
         $scope.temptotal = 0;
