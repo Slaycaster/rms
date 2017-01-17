@@ -25,24 +25,18 @@ class ServiceController extends CrudController
 		$this->crud->setColumns
 		(
 			[
-				$this->crud->addColumn
-				(
+				
 					[
 						'name' => 'service_name',
 						'label' => 'Service Name'
-					]
-				),
+					],
 
-				$this->crud->addColumn
-				(
 					[
 						'name' => 'sub_description',
 						'label' => 'Sub-description'
-					]
-				),
+					],
+				
 
-				$this->crud->addColumn
-				(
 					[
 						'label' => 'Service Type (Category)',
 						'type' => 'select',
@@ -50,16 +44,13 @@ class ServiceController extends CrudController
 						'entity' => 'service_type',
 						'attribute' => 'service_type_name',
 						'model' => 'App\Servicetype'
-					]
-				),
+					],
 
-				$this->crud->addColumn
-				(
 					[
 						'name' => 'price',
 						'label' => 'Price'
 					]
-				)
+				
 			]
 		);
 		$this->crud->addField

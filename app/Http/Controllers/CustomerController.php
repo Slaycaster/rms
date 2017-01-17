@@ -25,34 +25,27 @@ class CustomerController extends CrudController
     	$this->crud->setColumns
     	(
     		[
-    			$this->crud->addColumn
-    			(
+    			
     				[
     					'name' => 'customer_name',
     					'label' => 'Name'
-    				]
-    			),
-    			$this->crud->addColumn
-    			(
+    				],
+
     				[
     					'name' => 'address',
     					'label' => 'Address'
-    				]
-    			),
-    			$this->crud->addColumn
-    			(
+    				],
+
     				[
     					'name' => 'email',
     					'label' => 'E-mail'
-    				]
-    			),
-    			$this->crud->addColumn
-    			(
+    				],
+
     				[
     					'name' => 'contact',
     					'label' => 'Contact #'
     				]
-    			)
+    			
     		]
     	);
 

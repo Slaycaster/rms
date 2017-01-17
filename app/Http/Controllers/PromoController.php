@@ -26,21 +26,17 @@ class PromoController extends CrudController
     	$this->crud->setColumns
         (
     		[
-    			$this->crud->addColumn
-		    	(
+    			
 		    		[
 		    			'name' => 'promo_name',
 		    			'label' => 'Promo Name'
-		    		]
-		    	),
-
-		    	$this->crud->addColumn
-		    	(
+		    		],
+		    	
 		    		[
 		    			'name' => 'promo_rate',
 		    			'label' => 'Promo Rate (in %)'
 		    		]
-		    	)
+		    	
     		]
     	);
 

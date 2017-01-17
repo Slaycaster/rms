@@ -26,21 +26,17 @@ class ServicetypeController extends CrudController
 		$this->crud->setColumns
 		(
 			[
-				$this->crud->addColumn
-				(
+				
 					[
 						'name' => 'service_type_name',
 						'label' => 'Service Type (Category)'
-					]
-				),
+					],
 
-				$this->crud->addColumn
-				(
 					[
 						'name' => 'sub_description',
 						'label' => 'Sub-description'
 					]
-				)
+				
 			]
 		);
 

@@ -26,21 +26,18 @@ class BranchController extends CrudController
 		$this->crud->setColumns
 		(
 			[
-				$this->crud->addColumn
-				(
+				
 					[
 						'name' => 'branch_name',
 						'label' => 'Branch Name'
-					]
-				),
+					],
+				
 
-				$this->crud->addColumn
-				(
 					[
 						'name' => 'branch_address',
 						'label' => 'Address'
 					]
-				)
+				
 			]
 		);
 

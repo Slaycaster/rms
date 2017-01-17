@@ -25,64 +25,46 @@ class StylistController extends CrudController
 		$this->crud->setColumns
 		(
 			[
-				$this->crud->addColumn
-				(
+				
 					[
 						'name' => 'stylist_last_name',
 						'label' => 'Last Name'
-					]
-				),
+					],
 
-				$this->crud->addColumn
-				(
+				
 					[
 						'name' => 'stylist_first_name',
 						'label' => 'First Name'
-					]
-				),
+					],
+				
 
-				$this->crud->addColumn
-				(
 					[
 						'name' => 'stylist_middle_name',
 						'label' => 'Middle Name'
-					]
-				),
+					],
+				
 
-				$this->crud->addColumn
-				(
+			
 					[
 						'name' => 'stylist_address',
 						'label' => 'Address'
-					]
-				),
-
-				$this->crud->addColumn
-				(
+					],
+				
 					[
 						'name' => 'stylist_contact_no',
 						'label' => 'Contact #'
-					]
-				),
-
-				$this->crud->addColumn
-				(
+					],
+				
 					[
 						'name' => 'stylist_email',
 						'label' => 'E-mail'
-					]
-				),
+					],
+				
 
-				$this->crud->addColumn
-				(
 					[
 						'name' => 'date_hired',
 						'label' => 'Date Hired'
-					]
-				),
-
-				$this->crud->addColumn
-				(
+					],
 					[
 						'label' => 'Branch',
 						'type' => 'select',
@@ -91,7 +73,7 @@ class StylistController extends CrudController
 						'attribute' => 'branch_name',
 						'model' => 'App\Branch'
 					]
-				)
+				
 			]
 		);
 
