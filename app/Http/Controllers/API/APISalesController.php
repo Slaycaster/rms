@@ -63,9 +63,9 @@ class APISalesController extends Controller
     	return json_encode(["message" => "Transaction successfully saved!"], JSON_PRETTY_PRINT);
     }
 
-    public function getTransactionNumber()
+    public function getTransactionNumber($id)
     {
-    	$transaction_max = Transaction::max('id');
+    	$transaction_max = Transaction::where('branch_id', '=', $id)->max('id');
     	if ($transaction_max == null)
     	{
     		$transaction_max = 0;

@@ -110,10 +110,10 @@ use App\Transaction;
 	    	<tbody>
 		    	@foreach($transactions as $transaction)
 		    		<tr>
-		    			<td>{{$transaction->id}}</td>
 		    			<?php
 		    				$total_transaction += 1;
 		    			?>
+		    			<td>{{$total_transaction}}</td>
 		    			<td>{{$transaction->customer}}</td>
 		    			<td>
 		    				<table border="1" width="100%">
