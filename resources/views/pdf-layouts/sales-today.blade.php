@@ -94,7 +94,7 @@ use App\Transaction;
 	        <br>
 	        <strong>SALES REPORT<br>{{$today}}</strong>
 	        <br>
-	        <normal style="font-size: 16px">{{$transaction->branch->branch_name}}</normal>
+	        <normal style="font-size: 16px"></normal>
 	    </p>
 
 	    <table border="1" width="520">
