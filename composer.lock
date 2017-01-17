@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c8ffacc00bdd2566ca4e188c22628d95",
-    "content-hash": "2ce8cfbfc664bd31d575ef7c6dd45b6b",
+    "hash": "cfffb6f013ad0ccc806d0a5d55e0aed7",
+    "content-hash": "0cdd39c200f8109438cacfb95f8b9bde",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -108,16 +108,16 @@
         },
         {
             "name": "backpack/crud",
-            "version": "3.1.51",
+            "version": "3.1.48",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "38395fc5296a4d827aeb537660d885a0acbc94ca"
+                "reference": "7fbcbd5c6759d41a1d7c30fce3ba01de427cc5c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/38395fc5296a4d827aeb537660d885a0acbc94ca",
-                "reference": "38395fc5296a4d827aeb537660d885a0acbc94ca",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/7fbcbd5c6759d41a1d7c30fce3ba01de427cc5c4",
+                "reference": "7fbcbd5c6759d41a1d7c30fce3ba01de427cc5c4",
                 "shasum": ""
             },
             "require": {
@@ -168,7 +168,7 @@
                 "read",
                 "update"
             ],
-            "time": "2017-01-11 06:11:49"
+            "time": "2016-12-14 12:49:39"
         },
         {
             "name": "backpack/permissionmanager",
