@@ -101,7 +101,8 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
             stylist_id: document.getElementById('stylist_id').value,
             promo_id: document.getElementById('promo_id').value,
             price: $scope.temptotal,
-            items: document.getElementById('items').value
+            item_id: document.getElementById('item_id').value,
+            item_unit: document.getElementById('item_unit').value
        }).success(function(data, status, headers, config, response) {
             console.log(data);
             window.location.reload(true);

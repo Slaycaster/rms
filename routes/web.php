@@ -28,6 +28,7 @@ Route::group(['middleware' => 'admin'], function()
 		CRUD::resource('branches', 'BranchController');
 		CRUD::resource('promos', 'PromoController');
 		CRUD::resource('customers', 'CustomerController');
+		CRUD::resource('items', 'ItemController');
 	});
 	
 	Route::get('sales', 'SaleController@index');	

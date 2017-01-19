@@ -35,6 +35,7 @@
             <ul class="treeview-menu">
               <li><a href="{{ url('branches') }}"><i class="fa fa-building-o"></i> <span>Branches</span></a></li>
               <li><a href="{{ url('stylists') }}"><i class="fa fa-cut"></i> <span>Stylists</span> </a></li>
+              <li><a href="{{ url('items') }}"><i class="fa fa-cube"></i> <span>Items</span> </a></li>
               <li><a href="{{ url('promos') }}"><i class="fa fa-asterisk"></i> <span>Discounts/Promos</span></a></li>
               <li><a href="{{ url('servicetypes') }}"><i class="fa fa-star-half-full"></i> <span>Types of Services</span></a></li>
               <li><a href="{{ url('services') }}"><i class="fa fa-book"></i> <span>Services</span></a></li>

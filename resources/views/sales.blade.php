@@ -147,9 +147,15 @@
                                         <div>&nbsp;</div>
                                         <div class="form-group">
                                             <label for="items" class="col-sm-4 control-label">Items</label>
+                                            <div class="input_fields_wrap">
+                                                <button class="add_field_button btn btn-sm btn-default">+ add more item</button>
+                                                <div>{{ Form::select('item_id[]', $items, null, ['id' => 'items']) }}<input type="text" name="item_unit[]" id="items"></div>
+                                            </div>
+                                            <!--
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="items" id="items" />
                                             </div>
+                                            -->
                                         </div>
                                     </div>
                                 </div>
@@ -202,4 +208,26 @@
             </div>
         </div>
     </div>
+    @section('after_scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var max_fields = 10; //maximum input boxes allowed
+            var wrapper = $(".input_fields_wrap"); //fields wrapper
+            var add_button = $(".add_field_button"); //Add button ID
+
+            var x = 1; //initial text box count
+            $(add_button).click(function(e) { //on add input button click
+                e.preventDefault();
+                if (x < max_fields) { //max input box allowed
+                    x++; //text box increment
+                    $(wrapper).append('<div>{{ Form::select("item_id[]", $items, null, ["id" => "items"]) }}<input type="text" name="item_unit[]" id="items"><a href="#" class="remove_field">Remove</a></div>'); //add input box
+                }
+            });
+
+            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                e.preventDefault(); $(this).parent('div').remove(); x--;
+            })
+        });
+    </script>
+    @endsection
 @endsection

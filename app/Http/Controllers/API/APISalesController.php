@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Service;
 use App\Servicetype;
 use App\Promo;
+use App\UsedItem;
 
 /*------------------------------------
 		Transactional Models
@@ -20,6 +21,9 @@ class APISalesController extends Controller
 {
     public function transactionCheckout()
     {
+        $item_id = Request::input('item_id');
+        $item_unit = Request::input('item_unit');
+
         /*--------------------------------------------------
             Save the current transaction to the database
         ---------------------------------------------------*/
@@ -29,7 +33,7 @@ class APISalesController extends Controller
         $transaction->user_id = Request::input('user_id');
         $transaction->stylist_id = Request::input('stylist_id');
         $transaction->promo_id = Request::input('promo_id');
-        $transaction->items = Request::input('items');
+        //$transaction->items = Request::input('items');
 
         if (Request::input('promo_id') != 0)
         {
@@ -58,6 +62,15 @@ class APISalesController extends Controller
             $sale->transaction_id = $transaction_max;
             $sale->price = $saleitem['price'];
             $sale->save();
+        }
+
+        for ($i=0; $i < $item_id.length() ; $i++)
+        { 
+            $item_used = new UsedItem();
+            $item_used->item_id = $item_id[$i];
+            $item_used->item_dosage = $item_unit[$i];
+            $item_used->transaction_id = $transaction_max;
+            $item_used->save();
         }
 
     	return json_encode(["message" => "Transaction successfully saved!"], JSON_PRETTY_PRINT);
