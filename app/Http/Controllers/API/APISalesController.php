@@ -64,7 +64,7 @@ class APISalesController extends Controller
             $sale->save();
         }
 
-        for ($i=0; $i < $item_id.length() ; $i++)
+        for ($i=0; $i < sizeof($item_id) ; $i++)
         { 
             $item_used = new UsedItem();
             $item_used->item_id = $item_id[$i];

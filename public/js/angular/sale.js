@@ -93,6 +93,14 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $scope.proceedToCheckout = function()
     {
+        var item_id = [];
+        var item_unit = [];
+        for(var i = 0; i < document.getElementsByName('item_id[]').length; i++)
+        {
+            item_id.push(document.getElementsByName('item_id[]')[i].value);
+            item_unit.push(document.getElementsByName('item_unit[]')[i].value);
+        }
+        
        $http.post('api/transactions/save', {
             sales: $scope.saletemp,
             customer: document.getElementById('customer').value,
@@ -101,12 +109,13 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
             stylist_id: document.getElementById('stylist_id').value,
             promo_id: document.getElementById('promo_id').value,
             price: $scope.temptotal,
-            item_id: document.getElementById('item_id').value,
-            item_unit: document.getElementById('item_unit').value
+            item_id: item_id,
+            item_unit: item_unit
        }).success(function(data, status, headers, config, response) {
             console.log(data);
             window.location.reload(true);
-       });  
+       });
+       
     }
 
     $scope.init();

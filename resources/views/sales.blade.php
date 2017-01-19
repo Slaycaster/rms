@@ -149,7 +149,7 @@
                                             <label for="items" class="col-sm-4 control-label">Items</label>
                                             <div class="input_fields_wrap">
                                                 <button class="add_field_button btn btn-sm btn-default">+ add more item</button>
-                                                <div>{{ Form::select('item_id[]', $items, null, ['id' => 'items']) }}<input type="text" name="item_unit[]" id="items"></div>
+                                                <div>{{ Form::select('item_id[]', $items, null, ['id' => 'item_id', 'class' => 'col-sm-4']) }}<input type="text" name="item_unit[]" id="item_unit" class="col-sm-8"></div>
                                             </div>
                                             <!--
                                             <div class="col-sm-8">
@@ -220,7 +220,7 @@
                 e.preventDefault();
                 if (x < max_fields) { //max input box allowed
                     x++; //text box increment
-                    $(wrapper).append('<div>{{ Form::select("item_id[]", $items, null, ["id" => "items"]) }}<input type="text" name="item_unit[]" id="items"><a href="#" class="remove_field">Remove</a></div>'); //add input box
+                    $(wrapper).append('<div>{{ Form::select("item_id[]", $items, null, ["id" => "items", "class" => "col-sm-4"]) }}<input type="text" name="item_unit[]" id="items" class="col-sm-8"><a href="#" class="remove_field">Remove</a></div>'); //add input box
                 }
             });
 
