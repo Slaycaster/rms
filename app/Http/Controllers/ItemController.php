@@ -31,9 +31,18 @@ class ItemController extends CrudController
     			],
 
     			[
-    				'name' => 'item_unit_of_measurement',
-    				'label' => 'Unit of Measurement'
-    			]
+    				'name' => 'item_stock',
+    				'label' => 'Stock'
+    			],
+
+                [
+                    'label' => 'Branch',
+                    'type' => 'select',
+                    'name' => 'branch_id',
+                    'entity' => 'branch',
+                    'attribute' => 'branch_name',
+                    'model' => 'App\Branch'
+                ]
     		]
     	);
 
@@ -51,11 +60,24 @@ class ItemController extends CrudController
     	(
     		[
 				//Text
-				'name' => 'item_unit_of_measurement',
-				'label' => 'Unit of Measurement',
-				'type' => 'text'
+				'name' => 'item_stock',
+				'label' => 'Stock',
+				'type' => 'number'
 			]
     	);
+
+        $this->crud->addField
+        (
+            [
+                //Relationship
+                'label' => 'Branch',
+                'type' => 'select',
+                'name' => 'branch_id', //the DB column for the foreign key
+                'entity' => 'branch', //the method that defines the relationship in you Model
+                'attribute' => 'branch_name', //foreign key attribute that is shown to user
+                'model' => 'App\Branch' //foreign key model
+            ]
+        );
     }
 
     public function store(ItemStoreRequest $request)

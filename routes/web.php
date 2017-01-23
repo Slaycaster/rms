@@ -35,4 +35,5 @@ Route::group(['middleware' => 'admin'], function()
 	Route::get('reports', 'ReportsController@index');
 	Route::get('reports/sales/today', 'ReportsController@today');
 	Route::get('reports/sales/branch', 'ReportsController@branch');
+	Route::get('reports/sales/customer', 'ReportsController@customer');
 });

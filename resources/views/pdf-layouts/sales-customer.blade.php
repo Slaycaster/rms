@@ -7,9 +7,8 @@ use App\Transaction;
 
 	$timestamp = time()+date("Z");
 	$today = gmdate("Y/m/d",$timestamp);
-	$branch_id = Session::get('branch_id', 1);
-	$transactions = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
-						->where('branch_id', '=', $branch_id) 
+	$customer_name = Session::get('customer_name', ' ');
+	$transactions = Transaction::where('customer', 'like', '%' . $customer_name . '%') 
 						->with('branch')
 						->with('sales')
 						->with('user')
@@ -26,7 +25,7 @@ use App\Transaction;
 <!DOCTYPE html5>
 <html>
 	<head>
-		<title>Sales Report - {{$today}} | Maria Jose Salon</title>
+		<title>Customer's Report - {{$today}} | Maria Jose Salon</title>
 
 		<style type="text/css">
 		    table
@@ -94,12 +93,12 @@ use App\Transaction;
 		<p style="text-align: center;">
 	        <normal style="font-size: 18px">Maria & Jose Salon</normal>
 	        <br>
-	        <strong>SALES REPORT<br>as of {{$today}}</strong>
+	        <strong>SALES REPORT<br>{{$today}}</strong>
 	        <br>
 	        <normal style="font-size: 16px"></normal>
 	    </p>
 
-	    <table border="1" width="520">
+	    <table border="1" width="720">
 	    	<thead>
 	    		<tr>
 		    		<td>#</td>
@@ -110,6 +109,7 @@ use App\Transaction;
 		    		<td>Stylist</td>
 		    		<td>Items Used</td>
 		    		<td>Cashier</td>
+		    		<td>Branch</td>
 	    		</tr>
 	    	</thead>
 	    	<tbody>
@@ -171,6 +171,7 @@ use App\Transaction;
 		    				</table>
 		    			</td>
 		    			<td>{{$transaction->user->name}}</td>
+		    			<td>{{ $transaction->branch->branch_name }}</td>
 		    		</tr>
 		    	@endforeach
 	    	</tbody>

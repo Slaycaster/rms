@@ -16,6 +16,8 @@ use App\Transaction;
 						->with('user')
 						->with('stylist')
 						->with('sales.service')
+						->with('used_items')
+						->with('used_items.item')
 						->get();
 
 	$total_transaction = 0;
@@ -93,17 +95,19 @@ use App\Transaction;
 		<p style="text-align: center;">
 	        <normal style="font-size: 18px">Maria & Jose Salon</normal>
 	        <br>
-	        <strong>SALES REPORT<br>{{$date}}</strong>
+	        <strong>SALES REPORT<br>as of {{$date}}</strong>
 	    </p>
 
-	    <table border="1" width="520">
+	    <table border="1" width="720">
 	    	<thead>
 	    		<tr>
 		    		<td>#</td>
 		    		<td>Customer</td>
 		    		<td>Sales</td>
 		    		<td>Total Price</td>
+		    		<td>Promo</td>
 		    		<td>Stylist</td>
+		    		<td>Items Used</td>
 		    		<td>Cashier</td>
 	    		</tr>
 	    	</thead>
@@ -135,10 +139,36 @@ use App\Transaction;
 		    				</table>
 		    			</td>
 		    			<td align="right">PHP {{$transaction->price}}</td>
+		    			<td align="left">
+		    				@if($transaction->promo_id > 0)
+		    					{{ $transaction->promo->promo_name }}
+		    				@else
+		    					None
+		    				@endif
+		    			</td>
 		    			<?php
 		    				$total_price += $transaction->price;
 		    			?>
 		    			<td>{{ $transaction->stylist->stylist_last_name }}, {{ $transaction->stylist->stylist_first_name }}</td>
+		    			<td>
+		    				<table border="1" width="100%">
+		    					<thead>
+		    						<tr>
+		    							<td width="60%"><strong>Item</strong></td>
+		    							<td width="40%"><strong>Qty</strong></td>
+		    						</tr>
+		    					</thead>
+
+		    					<tbody>
+				    				@foreach($transaction->used_items as $used_item)
+				    					<tr>
+				    						<td>{{$used_item->item->item_name}}</td>
+				    						<td align="right">{{$used_item->item_quantity}}</td>
+				    					</tr>
+				    				@endforeach
+		    					</tbody>
+		    				</table>
+		    			</td>
 		    			<td>{{$transaction->user->name}}</td>
 		    		</tr>
 		    	@endforeach

@@ -68,8 +68,12 @@ class APISalesController extends Controller
         { 
             $item_used = new UsedItem();
             $item_used->item_id = $item_id[$i];
-            $item_used->item_dosage = $item_unit[$i];
+            $item_used->item_quantity = $item_unit[$i];
             $item_used->transaction_id = $transaction_max;
+
+            //Decrement the stock count in the database...
+            DB::table('items')->decrement('item_stock', $item_unit[$i], ['id' => $item_id[$i]]);
+
             $item_used->save();
         }
 

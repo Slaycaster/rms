@@ -19,7 +19,7 @@ class Item extends Model
 	protected $table = 'items';
 	protected $primaryKey = 'id';
 	protected $hidden = ['created_at', 'updated_at'];
-	protected $fillable = ['item_name', 'item_unit_of_measurement'];
+	protected $fillable = ['item_name', 'item_stock', 'branch_id'];
 
 	/*
 	-----------------------------------------------------
@@ -32,6 +32,11 @@ class Item extends Model
 		RELATIONSHIPS
 	-----------------------------------------------------
 	*/	
+
+	public function branch()
+	{
+		return $this->belongsTo('App\Branch', 'branch_id', 'id');
+	}
 
 	public function used_items()
 	{

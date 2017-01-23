@@ -27,7 +27,7 @@ class ItemUpdateRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     {
         return [
             'item_name' => 'required',
-            'item_unit_of_measurement' => 'required'
+            'item_stock' => 'required|min:1'
         ];
     }
 }

@@ -149,7 +149,7 @@ class StylistController extends CrudController
 		$this->crud->addField
 		(
 			[
-				//Relationshorip - Service Type
+				//Relationship
 				'label' => 'Branch',
 				'type' => 'select',
 				'name' => 'branch_id', //the DB column for the foreign key

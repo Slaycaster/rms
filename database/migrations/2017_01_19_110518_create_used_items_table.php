@@ -16,7 +16,7 @@ class CreateUsedItemsTable extends Migration
         Schema::create('used_items', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('item_id');
-            $table->integer('item_dosage');
+            $table->integer('item_quantity');
             $table->integer('transaction_id');
             $table->timestamps();
         });
