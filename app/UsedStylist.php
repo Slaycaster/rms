@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
-class Stylist extends Model
+class UsedStylist extends Model
 {
     use CrudTrait;
 
@@ -16,10 +16,10 @@ class Stylist extends Model
 	*/    
 
 	//Table name in the database
-	protected $table = 'stylists';
+	protected $table = 'used_stylists';
 	protected $primaryKey = 'id';
-	protected $hidden = ['created_at', 'updated_at'];
-	protected $fillable = ['stylist_last_name', 'stylist_first_name', 'stylist_middle_name', 'stylist_address', 'stylist_contact_no', 'stylist_email', 'date_hired', 'branch_id'];
+	protected $hidden = ['id'];
+	protected $fillable = ['stylist_id', 'transaction_id'];
 
 	/*
 	-----------------------------------------------------
@@ -33,14 +33,14 @@ class Stylist extends Model
 	-----------------------------------------------------
 	*/	
 
-	public function branch()
+	public function stylist()
 	{
-		return $this->belongsTo('App\Branch', 'branch_id', 'id');
+		return $this->belongsTo('App\Stylist', 'stylist_id', 'id');
 	}
 
-	public function used_stylists()
+	public function transaction()
 	{
-		return $this->hasMany('App\UsedStylist', 'stylist_id');
+		return $this->belongsTo('App\Transaction', 'transaction_id', 'id');
 	}
 
 	/*
@@ -59,5 +59,5 @@ class Stylist extends Model
 	-----------------------------------------------------
 		MUTATORS
 	-----------------------------------------------------
-	*/		
+	*/
 }

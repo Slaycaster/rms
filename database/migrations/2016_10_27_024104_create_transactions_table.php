@@ -17,8 +17,8 @@ class CreateTransactionsTable extends Migration
             $table->string('customer');
             $table->integer('branch_id');
             $table->integer('promo_id')->nullable();
-            $table->integer('stylist_id');
             $table->integer('user_id');
+            $table->double('additional_charge')->nullable();
             $table->double('price')->nullable();
             $table->text('items')->nullable();
             $table->timestamps();

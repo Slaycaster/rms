@@ -19,7 +19,7 @@ class Item extends Model
 	protected $table = 'items';
 	protected $primaryKey = 'id';
 	protected $hidden = ['created_at', 'updated_at'];
-	protected $fillable = ['item_name', 'item_stock', 'branch_id'];
+	protected $fillable = ['item_name',  'unit_of_measurement', 'item_stock', 'branch_id'];
 
 	/*
 	-----------------------------------------------------

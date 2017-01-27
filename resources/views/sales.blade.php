@@ -137,23 +137,34 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class = "form-group">
+                                        <label for="additional_charge"></label>
+                                        <label for="amount_tendered" class="col-sm-4 control-label">Additional Charge</label>
+                                        <div class = "col-sm-8">
+                                            <div class = "input-group">
+                                                <div class ="input-group-addon">₱</div>
+                                                <input type="number" step=".01" class="form-control" value="0" id="additional_charge" ng-model="additional_charge" ng-blur="additionalCharge(additional_charge)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class = "form-group">
                                         <label for="amount_tendered" class="col-sm-4 control-label">Amount Tendered</label>
                                         <div class = "col-sm-8">
                                             <div class = "input-group">
                                                 <div class ="input-group-addon">₱</div>
-                                                <input type="text" class="form-control" value="0" id="amount_tendered" ng-model="amount_tendered" ng-change="getChange(amount_tendered)">
+                                                <input type="number" step=".01" class="form-control" value="0" id="amount_tendered" ng-model="amount_tendered" ng-change="getChange(amount_tendered)">
                                             </div>
                                         </div>
                                         <div>&nbsp;</div>
                                         <div class="form-group">
-                                            <label for="items" class="col-sm-4 control-label">Items</label>
+                                            <label for="items" class="col-sm-4 control-label">Item/s (Item/Consumed/Stock)</label>
                                             <div class="input_fields_wrap">
                                                 <button class="add_field_button btn btn-sm btn-default">+ add more item</button>
                                                 <br>
                                                 <br>
                                                 <div> 
-                                                        {{ Form::select('item_id[]', $items, null, ['id' => 'item_id', 'class' => 'col-sm-4']) }}
-                                                        <input type="number" name="item_unit[]" id="item_unit" class="col-sm-8">
+                                                        {{ Form::select('item_id[]', $items, null, ['id' => 'item_id', 'class' => 'col-sm-8']) }}
+                                                        <input type="number" step=".01" name="item_consumed[]" id="item_consumed" class="col-sm-2" value="0">
+                                                        <input type="number" name="item_unit[]" id="item_unit" class="col-sm-2" value="0">
                                                 </div>
                                             </div>
                                             <!--
@@ -183,18 +194,23 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="stylist" class="col-sm-4 control-label">Stylist</label>
-                                        <div class="col-sm-8">
-                                            {{ Form::select('stylist_id', $stylists, null, ['class' => 'form-control', 'id' => 'stylist_id']) }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
                                         <label for="stylist" class="col-sm-4 control-label">Promo</label>
                                         <div class="col-sm-8">
                                             {{ Form::select('promo_id', $promos, null, ['class' => 'form-control', 'id' => 'promo_id']) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="stylist" class="col-sm-4 control-label">Stylist/s</label>
+                                        <div class="input_fields_wrap2">
+                                                <button class="add_field_button2 btn btn-sm btn-default">+ add more stylist</button>
+                                                
+                                                <br>
+                                                <div> 
+                                                        {{ Form::select('stylist_id[]', $stylists, null, ['id' => 'stylist_id', 'class' => 'col-sm-8']) }}
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -225,7 +241,7 @@
                 e.preventDefault();
                 if (x < max_fields) { //max input box allowed
                     x++; //text box increment
-                    $(wrapper).append('<div>{{ Form::select("item_id[]", $items, null, ["id" => "items", "class" => "col-sm-4"]) }}<input type="number" name="item_unit[]" id="items" class="col-sm-8"><a href="#" class="remove_field">Remove</a></div>'); //add input box
+                    $(wrapper).append('<div>{{ Form::select("item_id[]", $items, null, ["id" => "items", "class" => "col-sm-4"]) }}<input type="number" step=".01" name="item_consumed[]" id="item_consumed" class="col-sm-4" value="0"><input type="number" name="item_unit[]" id="items" class="col-sm-4"><a href="#" class="remove_field">Remove</a></div>'); //add input box
                 }
             });
 
@@ -234,5 +250,26 @@
             })
         });
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var max_fields2 = 10; //maximum input boxes allowed
+            var wrapper2 = $(".input_fields_wrap2"); //fields wrapper
+            var add_button2 = $(".add_field_button2"); //Add button ID
+
+            var x2 = 1; //initial text box count
+            $(add_button2).click(function(e) { //on add input button click
+                e.preventDefault();
+                if (x2 < max_fields2) { //max input box allowed
+                    x2++; //text box increment
+                    $(wrapper2).append('<div>{{ Form::select("stylist_id[]", $stylists, null, ["id" => "stylists", "class" => "col-sm-8"]) }}<a href="#" class="remove_field2">Remove</a></div>'); //add input box
+                }
+            });
+
+            $(wrapper2).on("click",".remove_field2", function(e){ //user click on remove text
+                e.preventDefault(); $(this).parent('div').remove(); x2--;
+            })
+        });
+    </script>    
     @endsection
 @endsection

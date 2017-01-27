@@ -18,7 +18,7 @@ class Transaction extends Model
 	protected $table = 'transactions';
 	protected $primaryKey = 'id';
 	//protected $hidden = ['id'];
-	protected $fillable = ['customer_id', 'branch_id', 'promo_id', 'stylist_id', 'user_id', 'price'];
+	protected $fillable = ['customer_id', 'branch_id', 'promo_id', 'user_id', 'price'];
 
 	/*
 	-----------------------------------------------------
@@ -46,12 +46,7 @@ class Transaction extends Model
 	{
 		return $this->belongsTo('App\Promo', 'promo_id', 'id');
 	}
-
-	public function stylist()
-	{
-		return $this->belongsTo('App\Stylist', 'stylist_id', 'id');
-	}
-
+	
 	public function user()
 	{
 		return $this->belongsTo('App\User', 'user_id', 'id');
@@ -65,6 +60,11 @@ class Transaction extends Model
 	public function used_items()
 	{
 		return $this->hasMany('App\UsedItem', 'transaction_id');
+	}
+
+	public function used_stylists()
+	{
+		return $this->hasMany('App\UsedStylist', 'stylist_id');
 	}
 
 	/*

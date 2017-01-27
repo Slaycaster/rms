@@ -13,7 +13,8 @@ use App\Transaction;
 						->with('branch')
 						->with('sales')
 						->with('user')
-						->with('stylist')
+						->with('used_stylists')
+						->with('used_stylists.stylist')
 						->with('sales.service')
 						->with('used_items')
 						->with('used_items.item')
@@ -65,7 +66,6 @@ use App\Transaction;
 		        font-weight: bold;
 		        line-height: 1;
 		        color: #fff;
-		        text-align: center;
 		        white-space: nowrap;
 		        vertical-align: baseline;
 		        border-radius: .25em;
@@ -95,11 +95,9 @@ use App\Transaction;
 	        <normal style="font-size: 18px">Maria & Jose Salon</normal>
 	        <br>
 	        <strong>SALES REPORT<br>as of {{$today}}</strong>
-	        <br>
-	        <normal style="font-size: 16px"></normal>
 	    </p>
 
-	    <table border="1" width="520">
+	    <table border="1" width="720">
 	    	<thead>
 	    		<tr>
 		    		<td>#</td>
@@ -150,13 +148,29 @@ use App\Transaction;
 		    			<?php
 		    				$total_price += $transaction->price;
 		    			?>
-		    			<td>{{ $transaction->stylist->stylist_last_name }}, {{ $transaction->stylist->stylist_first_name }}</td>
+		    			<td>
+			    			<table border="1" width="100%">
+		    					<thead>
+		    						<tr>
+		    							<td width="100%"><strong>Name</strong></td>
+		    						</tr>
+		    					</thead>
+				    			<tbody>
+				    				@foreach($transaction->used_stylists as $used_stylist)
+				    					<tr>
+				    						<td>{{$used_stylist->stylist->stylist_last_name}}, {{$used_stylist->stylist->stylist_first_name}}</td>
+				    					</tr>
+				    				@endforeach
+		    					</tbody>
+		    				</table>
+		    			</td>
 		    			<td>
 		    				<table border="1" width="100%">
 		    					<thead>
 		    						<tr>
 		    							<td width="60%"><strong>Item</strong></td>
-		    							<td width="40%"><strong>Qty</strong></td>
+		    							<td width="20%"><strong>Consumed</strong></td>
+		    							<td width="20%"><strong>Qty</strong></td>
 		    						</tr>
 		    					</thead>
 
@@ -164,6 +178,7 @@ use App\Transaction;
 				    				@foreach($transaction->used_items as $used_item)
 				    					<tr>
 				    						<td>{{$used_item->item->item_name}}</td>
+				    						<td>{{ $used_item->item_consumed }}</td>
 				    						<td align="right">{{$used_item->item_quantity}}</td>
 				    					</tr>
 				    				@endforeach

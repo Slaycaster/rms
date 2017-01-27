@@ -10,6 +10,7 @@ use App\Service;
 use App\Servicetype;
 use App\Promo;
 use App\UsedItem;
+use App\UsedStylist;
 
 /*------------------------------------
 		Transactional Models
@@ -23,6 +24,9 @@ class APISalesController extends Controller
     {
         $item_id = Request::input('item_id');
         $item_unit = Request::input('item_unit');
+        $item_consumed = Request::input('item_consumed');
+
+        $stylists = Request::input('stylist_id');
 
         /*--------------------------------------------------
             Save the current transaction to the database
@@ -31,7 +35,8 @@ class APISalesController extends Controller
         $transaction->customer = Request::input('customer');
         $transaction->branch_id = Request::input('branch_id');
         $transaction->user_id = Request::input('user_id');
-        $transaction->stylist_id = Request::input('stylist_id');
+        $transaction->additional_charge = Request::input('additional_charge');
+        //$transaction->stylist_id = Request::input('stylist_id');
         $transaction->promo_id = Request::input('promo_id');
         //$transaction->items = Request::input('items');
 
@@ -68,13 +73,23 @@ class APISalesController extends Controller
         { 
             $item_used = new UsedItem();
             $item_used->item_id = $item_id[$i];
+            $item_used->item_consumed = $item_consumed[$i];
             $item_used->item_quantity = $item_unit[$i];
             $item_used->transaction_id = $transaction_max;
 
             //Decrement the stock count in the database...
-            DB::table('items')->decrement('item_stock', $item_unit[$i], ['id' => $item_id[$i]]);
+            DB::table('items')->where('id', '=', $item_id[$i])->decrement('item_stock', $item_unit[$i]);
 
             $item_used->save();
+        }
+
+        for ($j=0; $j < sizeof($stylists); $j++)
+        {
+            $stylist_used = new UsedStylist();
+            $stylist_used->stylist_id = $stylists[$j];
+            $stylist_used->transaction_id = $transaction_max;
+
+            $stylist_used->save();
         }
 
     	return json_encode(["message" => "Transaction successfully saved!"], JSON_PRETTY_PRINT);

@@ -30,6 +30,11 @@ class ItemController extends CrudController
     				'label' => 'Name'
     			],
 
+                [
+                    'name' => 'unit_of_measurement',
+                    'label' => 'Unit'
+                ],
+
     			[
     				'name' => 'item_stock',
     				'label' => 'Stock'
@@ -55,6 +60,16 @@ class ItemController extends CrudController
 				'type' => 'text' 
 			]
     	);
+
+        $this->crud->addField
+        (
+            [
+                //Text
+                'name' => 'unit_of_measurement',
+                'label' => 'Unit of Measurement',
+                'type' => 'text'
+            ]
+        );
 
     	$this->crud->addField
     	(
