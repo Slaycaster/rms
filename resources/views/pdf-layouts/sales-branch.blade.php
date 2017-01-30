@@ -4,11 +4,13 @@
 		Transactional Models
 ------------------------------------*/
 use App\Transaction;
+use App\Branch;
 
 	$timestamp = time()+date("Z");
 	$today = gmdate("Y/m/d",$timestamp);
 	$date = Session::get('date', $today);
 	$branch_id = Session::get('branch_id', 1);
+	$branch = Branch::where('id', '=', $branch_id)->first();
 	$transactions = Transaction::whereBetween('created_at', [$date . ' 00:00:00', $date . ' 23:59:59'])
 						->where('branch_id', '=', $branch_id) 
 						->with('branch')
@@ -41,6 +43,10 @@ use App\Transaction;
 		    { 
 		    	page-break-inside: avoid;
 		    	page-break-after: auto; 
+		    }
+		    .topalign
+		    {
+		    	vertical-align: top;
 		    }
 		    p, strong, h3
 		    {
@@ -96,7 +102,7 @@ use App\Transaction;
 		<p style="text-align: center;">
 	        <normal style="font-size: 18px">Maria & Jose Salon</normal>
 	        <br>
-	        <strong>SALES REPORT<br>as of {{$date}}</strong>
+	        <strong>SALES REPORT<br>as of {{$date}}<br>{{$branch->branch_name}}</strong>
 	    </p>
 
 	    <table border="1" width="720">
@@ -110,6 +116,7 @@ use App\Transaction;
 		    		<td>Stylist</td>
 		    		<td>Items Used</td>
 		    		<td>Cashier</td>
+		    		<td>Time</td>
 	    		</tr>
 	    	</thead>
 	    	<tbody>
@@ -120,7 +127,7 @@ use App\Transaction;
 		    			?>
 		    			<td>{{$total_transaction}}</td>
 		    			<td>{{$transaction->customer}}</td>
-		    			<td>
+		    			<td class="topalign">
 		    				<table border="1" width="100%">
 		    					<thead>
 		    						<tr>
@@ -150,7 +157,7 @@ use App\Transaction;
 		    			<?php
 		    				$total_price += $transaction->price;
 		    			?>
-		    			<td>
+		    			<td class="topalign">
 			    			<table border="1" width="100%">
 		    					<thead>
 		    						<tr>
@@ -166,7 +173,7 @@ use App\Transaction;
 		    					</tbody>
 		    				</table>
 		    			</td>
-		    			<td>
+		    			<td class="topalign">
 		    				<table border="1" width="100%">
 		    					<thead>
 		    						<tr>
@@ -188,6 +195,13 @@ use App\Transaction;
 		    				</table>
 		    			</td>
 		    			<td>{{$transaction->user->name}}</td>
+		    			<td>
+		    				<?php
+		    					$created_at = strtotime($transaction->created_at);
+		    					$time_created_at = date('H:i:s', $created_at);
+		    				?>
+		    				{{ $time_created_at }}
+		    			</td>
 		    		</tr>
 		    	@endforeach
 	    	</tbody>

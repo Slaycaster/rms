@@ -78,7 +78,7 @@
 		</div>
 		<!-- ============================= /SALES BY BRANCH ==================================-->		
 
-		<!-- ============================= SALES BY BRANCH ==================================-->
+		<!-- ============================= SALES BY CUSTOMER ==================================-->
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -105,7 +105,27 @@
 				</div>
 			</div>
 		</div>
-		<!-- ============================= /SALES BY BRANCH ==================================-->		
+		<!-- ============================= /SALES BY CUSTOMER ==================================-->	
+
+		<!-- ============================= INVENTORY STOCK REPORT ==================================-->
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					
+				</div>
+
+				<div class="panel-body">
+					<h4><span class = "fa fa-clock-o"></span> Inventory Stock Report</h4>
+					<hr>
+					<form method="get" action="{{url('reports/inventory')}}" target="_blank">
+						{{ Form::select('branch_id', $branches, null, array('class' => 'form-control'))}}
+						<br>
+						<button type="submit" class="btn btn-primary btn-block">View</a>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- ============================= /INVENTORY STOCK REPORT ==================================-->	
 
 
 	</div>

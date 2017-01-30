@@ -40,6 +40,10 @@ use App\Transaction;
 		    	page-break-inside: avoid;
 		    	page-break-after: auto; 
 		    }
+		    .topalign
+		    {
+		    	vertical-align: top;
+		    }
 		    p, strong, h3
 		    {
 		    	font-family: helvetica;
@@ -108,6 +112,8 @@ use App\Transaction;
 		    		<td>Stylist</td>
 		    		<td>Items Used</td>
 		    		<td>Cashier</td>
+		    		<td>Time</td>
+		    		<td>Branch</td>
 	    		</tr>
 	    	</thead>
 	    	<tbody>
@@ -118,7 +124,7 @@ use App\Transaction;
 		    			?>
 		    			<td>{{$total_transaction}}</td>
 		    			<td>{{$transaction->customer}}</td>
-		    			<td>
+		    			<td class="topalign">
 		    				<table border="1" width="100%">
 		    					<thead>
 		    						<tr>
@@ -148,7 +154,7 @@ use App\Transaction;
 		    			<?php
 		    				$total_price += $transaction->price;
 		    			?>
-		    			<td>
+		    			<td class="topalign">
 			    			<table border="1" width="100%">
 		    					<thead>
 		    						<tr>
@@ -164,7 +170,7 @@ use App\Transaction;
 		    					</tbody>
 		    				</table>
 		    			</td>
-		    			<td>
+		    			<td class="topalign">
 		    				<table border="1" width="100%">
 		    					<thead>
 		    						<tr>
@@ -186,6 +192,14 @@ use App\Transaction;
 		    				</table>
 		    			</td>
 		    			<td>{{$transaction->user->name}}</td>
+		    			<td>
+		    				<?php
+		    					$created_at = strtotime($transaction->created_at);
+		    					$time_created_at = date('Gi.s', $created_at);
+		    				?>
+		    				{{ $time_created_at }}
+		    			</td>
+		    			<td>{{$transaction->branch->branch_name}}</td>
 		    		</tr>
 		    	@endforeach
 	    	</tbody>

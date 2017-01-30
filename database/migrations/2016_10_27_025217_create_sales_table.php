@@ -17,8 +17,6 @@ class CreateSalesTable extends Migration
             $table->integer('service_id');
             $table->integer('transaction_id');
             $table->double('price');
-            $table->double('additional_charge');
-            $table->double('total_price');
             $table->integer('promo_id')->nullable();
             $table->timestamps();
         });

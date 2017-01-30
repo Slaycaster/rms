@@ -41,6 +41,10 @@ use App\Transaction;
 		    	page-break-inside: avoid;
 		    	page-break-after: auto; 
 		    }
+		    .topalign
+		    {
+		    	vertical-align: top;
+		    }
 		    p, strong, h3
 		    {
 		    	font-family: helvetica;
@@ -94,7 +98,7 @@ use App\Transaction;
 		<p style="text-align: center;">
 	        <normal style="font-size: 18px">Maria & Jose Salon</normal>
 	        <br>
-	        <strong>SALES REPORT<br>as of {{$today}}</strong>
+	        <strong>SALES REPORT<br>as of {{$today}}<br>{{Auth::user()->branch->branch_name}}</strong>
 	    </p>
 
 	    <table border="1" width="720">
@@ -108,6 +112,7 @@ use App\Transaction;
 		    		<td>Stylist</td>
 		    		<td>Items Used</td>
 		    		<td>Cashier</td>
+		    		<td>Time</td>
 	    		</tr>
 	    	</thead>
 	    	<tbody>
@@ -118,7 +123,7 @@ use App\Transaction;
 		    			?>
 		    			<td>{{$total_transaction}}</td>
 		    			<td>{{$transaction->customer}}</td>
-		    			<td>
+		    			<td class="topalign">
 		    				<table border="1" width="100%">
 		    					<thead>
 		    						<tr>
@@ -148,7 +153,7 @@ use App\Transaction;
 		    			<?php
 		    				$total_price += $transaction->price;
 		    			?>
-		    			<td>
+		    			<td class="topalign">
 			    			<table border="1" width="100%">
 		    					<thead>
 		    						<tr>
@@ -164,7 +169,7 @@ use App\Transaction;
 		    					</tbody>
 		    				</table>
 		    			</td>
-		    			<td>
+		    			<td class="topalign">
 		    				<table border="1" width="100%">
 		    					<thead>
 		    						<tr>
@@ -186,6 +191,13 @@ use App\Transaction;
 		    				</table>
 		    			</td>
 		    			<td>{{$transaction->user->name}}</td>
+		    			<td>
+		    				<?php
+		    					$created_at = strtotime($transaction->created_at);
+		    					$time_created_at = date('H:i:s', $created_at);
+		    				?>
+		    				{{ $time_created_at }}
+		    			</td>
 		    		</tr>
 		    	@endforeach
 	    	</tbody>

@@ -64,7 +64,7 @@ class Transaction extends Model
 
 	public function used_stylists()
 	{
-		return $this->hasMany('App\UsedStylist', 'stylist_id');
+		return $this->hasMany('App\UsedStylist', 'transaction_id');
 	}
 
 	/*
