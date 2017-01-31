@@ -8,7 +8,7 @@ use App\Item;
 	$branch_id = Session::get('branch_id', 1);
 
 	$items = Item::where('branch_id', '=', $branch_id)->orderBy('item_stock', 'DESC')->get();
-
+	$branch = Branch::where('id', '=', $branch_id)->first();
 	$total_items = 0;
 	$total_stock_count = 0;
 ?>
@@ -84,7 +84,7 @@ use App\Item;
 		<p style="text-align: center;">
 	        <normal style="font-size: 18px">Maria & Jose Salon</normal>
 	        <br>
-	        <strong>INVENTORY REPORT<br>as of {{$today}}<br>{{Auth::user()->branch->branch_name}}</strong>
+	        <strong>INVENTORY REPORT<br>as of {{$today}}<br>{{$branch->branch_name}}</strong>
 	    </p>
 
 	    <table border="1" width="720">
