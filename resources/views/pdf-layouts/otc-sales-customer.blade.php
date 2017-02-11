@@ -161,11 +161,7 @@ use App\OTCTransaction;
 		    			</td>
 		    			<td>{{$transaction->user->name}}</td>
 		    			<td>
-		    				<?php
-		    					$created_at = strtotime($transaction->created_at);
-		    					$time_created_at = date('H:i:s', $created_at);
-		    				?>
-		    				{{ $time_created_at }}
+		    				{{ $transaction->created_at }}
 		    			</td>
 		    			<td>{{ $transaction->branch->branch_name }}</td>
 		    		</tr>
