@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
-class Item extends Model
+class OTCSale extends Model
 {
     use CrudTrait;
 
@@ -16,10 +16,10 @@ class Item extends Model
 	*/    
 
 	//Table name in the database
-	protected $table = 'items';
+	protected $table = 'otc_sales';
 	protected $primaryKey = 'id';
-	protected $hidden = ['created_at', 'updated_at'];
-	protected $fillable = ['item_name',  'unit_of_measurement', 'item_stock', 'branch_id'];
+	protected $hidden = ['id'];
+	protected $fillable = ['otc_item_id', 'otc_transaction_id', 'quantity', 'promo_id', 'price', 'additional_charge'];
 
 	/*
 	-----------------------------------------------------
@@ -33,14 +33,14 @@ class Item extends Model
 	-----------------------------------------------------
 	*/	
 
-	public function branch()
+	public function otc_item()
 	{
-		return $this->belongsTo('App\Branch', 'branch_id', 'id');
+		return $this->belongsTo('App\OTCItem', 'otc_item_id', 'id');
 	}
 
-	public function used_items()
+	public function otc_transaction()
 	{
-		return $this->hasMany('App\UsedItem', 'item_id');
+		return $this->belongsTo('App\OTCTransaction', 'otc_transaction_id', 'id');
 	}
 
 	/*
@@ -59,5 +59,5 @@ class Item extends Model
 	-----------------------------------------------------
 		MUTATORS
 	-----------------------------------------------------
-	*/		
+	*/	
 }

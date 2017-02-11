@@ -19,7 +19,7 @@ class UsedItem extends Model
 	protected $table = 'used_items';
 	protected $primaryKey = 'id';
 	protected $hidden = ['id'];
-	protected $fillable = ['item_id', 'item_consumed', 'item_quantity', 'transaction_id'];
+	protected $fillable = ['item_id', 'item_consumed', 'item_quantity', 'sales_id'];
 
 	/*
 	-----------------------------------------------------

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ItemStoreRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
+class OTCItemStoreRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,9 @@ class ItemStoreRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     public function rules()
     {
         return [
-            'item_name' => 'required',
-            'item_stock' => 'required|min:1'
+            'otc_item_name' => 'required',
+            'otc_unit_of_measurement' => 'required',
+            'otc_item_stock' => 'required|min:1'
         ];
     }
 }

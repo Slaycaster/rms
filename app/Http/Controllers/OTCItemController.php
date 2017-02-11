@@ -9,42 +9,44 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 	VALIDATION: change the requests to match your own file names if you need form validation
 ----------------------------------------------------------------------------------------------
 */
-use App\Http\Requests\ItemStoreRequest as ItemStoreRequest;
-use App\Http\Requests\ItemUpdateRequest as ItemUpdateRequest;
+use App\Http\Requests\OTCItemStoreRequest as OTCItemStoreRequest;
+use App\Http\Requests\OTCItemUpdateRequest as OTCItemUpdateRequest;
 
-class ItemController extends CrudController
+class OTCItemController extends CrudController
 {
     public function __construct()
     {
     	parent::__construct();
 
+    	$this->crud->setModel('App\OTCItem');
+    	$this->crud->setRoute('otc_items');
+    	$this->crud->setEntityNameStrings('Over-the-counter Item', 'Over-the-counter Items');
 
-    	$this->crud->setModel('App\Item');
-    	$this->crud->setRoute('items');
-    	$this->crud->setEntityNameStrings('Item', 'Items');
-
-        //$this->crud->addClause('where', 'branch_id', '=', $branch_id);
-
-        $this->crud->enableAjaxTable(); 
+    	$this->crud->enableAjaxTable(); 
         $this->crud->enableExportButtons();
 
     	$this->crud->setColumns
     	(
     		[
     			[
-    				'name' => 'item_name',
+    				'name' => 'otc_item_name',
     				'label' => 'Name'
     			],
 
                 [
-                    'name' => 'unit_of_measurement',
-                    'label' => 'Unit'
+                    'name' => 'otc_unit_of_measurement',
+                    'label' => 'Unit of Measurement'
                 ],
 
     			[
-    				'name' => 'item_stock',
+    				'name' => 'otc_item_stock',
     				'label' => 'Stock'
     			],
+
+                [
+                    'name' => 'otc_item_price',
+                    'label' => 'Price'
+                ],
 
                 [
                     'label' => 'Branch',
@@ -61,7 +63,7 @@ class ItemController extends CrudController
     	(
 			[
 				//Text
-				'name' => 'item_name',
+				'name' => 'otc_item_name',
 				'label' => 'Name',
 				'type' => 'text' 
 			]
@@ -71,7 +73,7 @@ class ItemController extends CrudController
         (
             [
                 //Text
-                'name' => 'unit_of_measurement',
+                'name' => 'otc_unit_of_measurement',
                 'label' => 'Unit of Measurement',
                 'type' => 'text'
             ]
@@ -81,11 +83,22 @@ class ItemController extends CrudController
     	(
     		[
 				//Text
-				'name' => 'item_stock',
+				'name' => 'otc_item_stock',
 				'label' => 'Stock',
 				'type' => 'number'
 			]
     	);
+
+        $this->crud->addField
+        (
+            [
+                //Number
+                'name' => 'otc_item_price',
+                'label' => 'Item Price',
+                'type' => 'text',
+                'prefix' => '₱'
+            ]
+        );
 
         $this->crud->addField
         (
@@ -101,12 +114,12 @@ class ItemController extends CrudController
         );
     }
 
-    public function store(ItemStoreRequest $request)
+    public function store(OTCItemStoreRequest $request)
 	{
 		return parent::storeCrud();
 	}
 
-	public function update(ItemUpdateRequest $request)
+	public function update(OTCItemUpdateRequest $request)
 	{
 		return parent::updateCrud();
 	}

@@ -9,6 +9,7 @@ use DB, Auth;
 use App\Stylist;
 use App\Promo;
 use App\Item;
+use App\OTCItem;
 
 class SaleController extends Controller
 {
@@ -21,5 +22,16 @@ class SaleController extends Controller
     		->with('stylists', $stylists)
     		->with('promos', $promos)
     		->with('items', $items);	
+    }
+
+    public function otc()
+    {
+        $stylists = Stylist::select(DB::raw("concat(stylist_last_name, ', ', stylist_first_name) AS stylist_name"), 'id')->where('branch_id', '=', Auth::user()->branch->id)->pluck('stylist_name', 'id');
+        $promos = ['0' => 'N/A'] + Promo::select(DB::raw("concat(promo_rate, '% | ', promo_name) AS promo"), 'id')->pluck('promo', 'id')->toArray();
+        $otc_items = OTCItem::where('branch_id', '=', Auth::user()->branch->id)->where('otc_item_stock', '>', 0)->get();
+        return view('sales-otc')
+            ->with('stylists', $stylists)
+            ->with('promos', $promos)
+            ->with('otc_items', $otc_items);       
     }
 }

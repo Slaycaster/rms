@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSalesTable extends Migration
+class CreateOtcSalesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +13,12 @@ class CreateSalesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sales', function (Blueprint $table) {
+        Schema::create('otc_sales', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('service_id');
-            $table->integer('transaction_id');
+            $table->integer('otc_item_id');
+            $table->integer('unit');
+            $table->integer('otc_transaction_id');
+            $table->integer('quantity');
             $table->double('price');
             $table->double('additional_charge')->nullable();
             $table->integer('promo_id')->nullable();
@@ -30,6 +33,6 @@ class CreateSalesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('sales');
+        Schema::drop('otc_sales');
     }
 }

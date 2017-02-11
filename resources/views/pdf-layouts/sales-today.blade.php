@@ -13,9 +13,9 @@ use App\Transaction;
 						->with('branch')
 						->with('sales')
 						->with('user')
-						->with('used_stylists')
-						->with('used_stylists.stylist')
+						->with('promo')
 						->with('sales.service')
+						->with('sales.used_stylists')
 						->with('used_items')
 						->with('used_items.item')
 						->get();
@@ -109,7 +109,6 @@ use App\Transaction;
 		    		<td>Sales</td>
 		    		<td>Total Price</td>
 		    		<td>Promo</td>
-		    		<td>Stylist</td>
 		    		<td>Items Used</td>
 		    		<td>Cashier</td>
 		    		<td>Time</td>
@@ -122,13 +121,15 @@ use App\Transaction;
 		    				$total_transaction += 1;
 		    			?>
 		    			<td>{{$total_transaction}}</td>
-		    			<td>{{$transaction->customer}}</td>
+		    			<td><strong>{{$transaction->customer}}</strong><br>{{$transaction->customer_contact}}<br>{{$transaction->customer_address}}</td>
 		    			<td class="topalign">
 		    				<table border="1" width="100%">
 		    					<thead>
 		    						<tr>
-		    							<td width="60%"><strong>Service</strong></td>
-		    							<td width="40%"><strong>Price</strong></td>
+		    							<td width="40%"><strong>Service</strong></td>
+		    							<td width="10%"><strong>Price</strong></td>
+		    							<td width="10%"><strong>Addtl.</strong></td>
+		    							<td width="40%"><strong>Stylist</strong></td>
 		    						</tr>
 		    					</thead>
 
@@ -137,6 +138,14 @@ use App\Transaction;
 				    					<tr>
 				    						<td>{{$sale->service->service_name}}</td>
 				    						<td align="right">PHP {{$sale->price}}</td>
+				    						<td align="right">PHP {{$sale->additional_charge}}</td>
+				    						@foreach($sale->used_stylists as $used_stylist)
+					    						@if($transaction->promo_id > 0)
+							    					<td>{{$used_stylist->stylist->stylist_last_name}}, {{$used_stylist->stylist->stylist_first_name}} (PHP {{ round((($sale->price + $sale->additional_charge) * .10) - (($sale->price + $sale->additional_charge) * .10) * ($transaction->promo->promo_rate * .01), 2) }})</td>
+							    				@else
+						    						<td>{{$used_stylist->stylist->stylist_last_name}}, {{$used_stylist->stylist->stylist_first_name}} (PHP {{round((($sale->price + $sale->additional_charge) * .10), 2)}})</td>
+							    				@endif
+						    				@endforeach
 				    					</tr>
 				    				@endforeach
 		    					</tbody>
@@ -154,23 +163,7 @@ use App\Transaction;
 		    				$total_price += $transaction->price;
 		    			?>
 		    			<td class="topalign">
-			    			<table border="1" width="100%">
-		    					<thead>
-		    						<tr>
-		    							<td width="100%"><strong>Name</strong></td>
-		    						</tr>
-		    					</thead>
-				    			<tbody>
-				    				@foreach($transaction->used_stylists as $used_stylist)
-				    					<tr>
-				    						<td>{{$used_stylist->stylist->stylist_last_name}}, {{$used_stylist->stylist->stylist_first_name}}</td>
-				    					</tr>
-				    				@endforeach
-		    					</tbody>
-		    				</table>
-		    			</td>
-		    			<td class="topalign">
-		    				<table border="1" width="100%">
+		    				<table border="1" width="100px">
 		    					<thead>
 		    						<tr>
 		    							<td width="60%"><strong>Item</strong></td>
@@ -183,7 +176,7 @@ use App\Transaction;
 				    				@foreach($transaction->used_items as $used_item)
 				    					<tr>
 				    						<td>{{$used_item->item->item_name}}</td>
-				    						<td>{{ $used_item->item_consumed }}</td>
+				    						<td>{{ $used_item->item_consumed }} {{ $used_item->item->unit_of_measurement }}</td>
 				    						<td align="right">{{$used_item->item_quantity}}</td>
 				    					</tr>
 				    				@endforeach

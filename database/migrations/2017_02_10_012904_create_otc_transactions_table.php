@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransactionsTable extends Migration
+class CreateOtcTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +13,7 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('otc_transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('customer');
             $table->string('customer_contact')->nullable();
@@ -21,6 +22,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('promo_id')->nullable();
             $table->integer('user_id');
             $table->double('price')->nullable();
+            $table->integer('stylist_id');
             $table->timestamps();
         });
     }
@@ -32,6 +34,6 @@ class CreateTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('transactions');
+        Schema::drop('otc_transactions');
     }
 }

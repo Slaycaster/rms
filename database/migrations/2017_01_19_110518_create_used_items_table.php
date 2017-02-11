@@ -18,7 +18,7 @@ class CreateUsedItemsTable extends Migration
             $table->integer('item_id');
             $table->double('item_consumed');
             $table->integer('item_quantity');
-            $table->integer('transaction_id');
+            $table->integer('sale_id');
             $table->timestamps();
         });
     }

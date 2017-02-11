@@ -102,7 +102,7 @@ class ServiceController extends CrudController
 				//Number
 				'name' => 'price',
 				'label' => 'Price',
-				'type' => 'number',
+				'type' => 'text',
 				'prefix' => '₱'
 			]
 		);

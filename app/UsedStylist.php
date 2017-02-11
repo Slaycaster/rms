@@ -19,7 +19,7 @@ class UsedStylist extends Model
 	protected $table = 'used_stylists';
 	protected $primaryKey = 'id';
 	protected $hidden = ['id'];
-	protected $fillable = ['stylist_id', 'transaction_id'];
+	protected $fillable = ['stylist_id', 'sale_id'];
 
 	/*
 	-----------------------------------------------------
@@ -38,9 +38,9 @@ class UsedStylist extends Model
 		return $this->belongsTo('App\Stylist', 'stylist_id', 'id');
 	}
 
-	public function transaction()
+	public function sale()
 	{
-		return $this->belongsTo('App\Transaction', 'transaction_id', 'id');
+		return $this->belongsTo('App\Sale', 'sale_id', 'id');
 	}
 
 	/*

@@ -6,39 +6,38 @@ use Request, Session, DB, Validator, Input, Redirect;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Service;
-use App\Servicetype;
+use App\OTCItem;
+use App\OTCTransaction;
+use App\OTCSale;
 use App\Promo;
-use App\UsedItem;
-use App\UsedStylist;
 
-/*------------------------------------
-		Transactional Models
-------------------------------------*/
-use App\Transaction;
-use App\Sale;
-
-class APISalesController extends Controller
+class APIOTCSalesController extends Controller
 {
-    public function transactionCheckout()
+	public function otc_items($id)
+	{
+		$data = OTCItem::where('branch_id', '=', $id)->get();
+    	return json_encode($data, JSON_PRETTY_PRINT);
+	}
+
+	public function transactionCheckout()
     {
         $item_id = Request::input('item_id');
-        $item_unit = Request::input('item_unit');
-        $item_consumed = Request::input('item_consumed');
-
-        $stylists = Request::input('stylist_id');
+        
         $additional_charges = Request::input('additional_charge');
+        $quantity = Request::input('quantity');
+        $unit = Request::input('unit_of_measurement');
 
         /*--------------------------------------------------
             Save the current transaction to the database
         ---------------------------------------------------*/
-        $transaction = new Transaction();
+        $transaction = new OTCTransaction();
         $transaction->customer = Request::input('customer');
         $transaction->customer_contact = Request::input('customer_contact');
         $transaction->customer_address = Request::input('customer_address');
         $transaction->branch_id = Request::input('branch_id');
         $transaction->user_id = Request::input('user_id');
         $transaction->promo_id = Request::input('promo_id');
+        $transaction->stylist_id = Request::input('stylist_id');
 
         if (Request::input('promo_id') != 0)
         {
@@ -56,62 +55,34 @@ class APISalesController extends Controller
     	$transaction->save();
 
         //Query the id of the recently saved Transaction
-        $transaction_max = Transaction::max('id');
+        $transaction_max = OTCTransaction::max('id');
 
         
         $saleitems = Request::input('sales');
         $saleitem_index = 0;
         foreach ($saleitems as $saleitem)
         {
-            $sale = new Sale();
-            $sale->service_id = $saleitem['id'];
-            $sale->transaction_id = $transaction_max;
-            $sale->price = $saleitem['price'];
+            $sale = new OTCSale();
+            $sale->otc_item_id = $saleitem['id'];
+            $sale->otc_transaction_id = $transaction_max;
+            $sale->quantity = $quantity[$saleitem_index];
+            $sale->price = $saleitem['otc_item_price'];
+            $sale->unit = $unit[$saleitem_index];
             $sale->additional_charge = $additional_charges[$saleitem_index];
+
+            //Decrement the stock count in the database...
+            DB::table('otc_items')->where('id', '=', $saleitem['id'])->decrement('otc_item_stock', $quantity[$saleitem_index]);
 
             $sale->save();
 
-            //Query the id of the recently saved Sale
-            $sale_max = Sale::max('id');
-
-            $stylist_used = new UsedStylist();
-            $stylist_used->stylist_id = $stylists[$saleitem_index];
-            $stylist_used->sale_id = $sale_max;
-
-            $stylist_used->save();
-
             $saleitem_index = $saleitem_index + 1;
         }
-
-        for ($i=0; $i < sizeof($item_id) ; $i++)
-        { 
-            $item_used = new UsedItem();
-            $item_used->item_id = $item_id[$i];
-            $item_used->item_consumed = $item_consumed[$i];
-            $item_used->item_quantity = $item_unit[$i];
-            $item_used->transaction_id = $transaction_max;
-
-            //Decrement the stock count in the database...
-            DB::table('items')->where('id', '=', $item_id[$i])->decrement('item_stock', $item_unit[$i]);
-
-            $item_used->save();
-        }
-        /*
-        for ($j=0; $j < sizeof($stylists); $j++)
-        {
-            $stylist_used = new UsedStylist();
-            $stylist_used->stylist_id = $stylists[$j];
-            $stylist_used->transaction_id = $transaction_max;
-
-            $stylist_used->save();
-        }
-        */
     	return json_encode(["message" => "Transaction successfully saved!"], JSON_PRETTY_PRINT);
     }
 
-    public function getTransactionNumber($id)
+	public function getTransactionNumber($id)
     {
-    	$transaction_max = Transaction::where('branch_id', '=', $id)->max('id');
+    	$transaction_max = OTCTransaction::where('branch_id', '=', $id)->max('id');
     	if ($transaction_max == null)
     	{
     		$transaction_max = 0;

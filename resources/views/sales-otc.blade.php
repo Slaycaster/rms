@@ -3,11 +3,11 @@
 @section('header')
     <section class="content-header">
       <h1>
-        Sales<small></small>
+        Over-the-counter Sales<small></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="{{ url(config('backpack.base.route_prefix')) }}">{{ config('backpack.base.project_name') }}</a></li>
-        <li class="active">Sales</li>
+        <li class="active">Over-the-counter Sales</li>
       </ol>
     </section>
     <!-- Lodash JS -->
@@ -15,7 +15,7 @@
     <!-- AngularJS~ -->
     {{ Html::script('js/angular/angular.min.js', array('type' => 'text/javascript')) }}
     {{ Html::script('js/angular/app.js', array('type' => 'text/javascript')) }}
-    {{ Html::script('js/angular/sale.js', array('type' => 'text/javascript')) }}
+    {{ Html::script('js/angular/otc-sale.js', array('type' => 'text/javascript')) }}
 @endsection
 
 @section('content')
@@ -23,7 +23,7 @@
         <div class="col-md-12">
             <div class = "panel panel-default">
             	<div class = "panel-heading">
-            		<i class = "fa fa-money"></i> <span>Sales Register</span>
+            		<i class = "fa fa-money"></i> <span>Over-the-counter Sales Register</span>
             	</div>
 
             	<div class ="panel panel-body">
@@ -31,29 +31,24 @@
                     <!-- AngularJS Part -->
             		<div class="row" ng-app="rms" ng-controller="SaleCtrl">
             			<div class ="col-md-3">
-                            <h5>Search by Category...</h5>
-                            <!-- Service type -->
-                            <a class="btn btn-warning btn-sm btn-block" href="#" ng-click="getServicesByType(0)">All</a>
-                            <a class="btn btn-danger btn-sm btn-block" ng-repeat="servicetype in servicetypes" href="#" ng-click="getServicesByType(servicetype.id)"><% servicetype.service_type_name %></a>
-
-                            <hr>
-                            <h3>List of Services</h3>
-            				<input type="text" class="form-control" ng-model="searchKeyword" placeholder="Search for items...">
-
-            				<table class="table table-hover table-responsive">
+                            
+                            <h3>List of Over-the-counter Items</h3>
+                            <input type="text" class="form-control" ng-model="searchKeyword" placeholder="Search for items...">
+            				
+            				<table id="otcitems" class="table table-hover table-responsive">
             					<thead>
-                                    <td>Category</td>
-            						<td>Service</td>
+            						<td>Item</td>
             						<td>Price</td>
                                     <td>Add</td>
             					</thead>
-
-                                <tr ng-repeat="service in services | filter: searchKeyword">
-                                    <td><% service.service_type.service_type_name %></td>
-                                    <td><% service.service_name %></td>
-                                    <td>₱<% service.price %></td>
-                                    <td><a href="#" class="btn btn-success btn-xs" ng-click="addServiceItem(service.id)">+ add</a></td>
-                                </tr>
+                                <tbody>
+                                    <tr ng-repeat="otc_item in otcitemsdata | filter: searchKeyword">
+                                        <td><% otc_item.otc_item_name %></td>
+                                        <td>₱<% otc_item.otc_item_price %></td>
+                                        <td><a href="#" class="btn btn-success btn-xs" ng-click="addServiceItem(otc_item.id)">+ add</a></td>
+                                    </tr>
+                                </tbody>
+                                
             				</table>
             			</div>
                 <form name="frmSales" novalidate="">
@@ -87,6 +82,7 @@
                                 </div> <!--/col-md-5-->
                                 
                                 <div class = "col-md-7">
+
                                     <!-- Date & Time Form Group -->
                                     <div class="form-group">
                                         <label for="time_date" class="col-sm-4 control-label">
@@ -99,6 +95,8 @@
                                             ?>
                                         </div>
                                     </div>
+
+
                                 </div>
 
                                 <div class="col-md-7">
@@ -108,7 +106,6 @@
                                         </div>
                                     </div>
                                 </div>
-
             				</div><!--/row-->
                             <hr>
 
@@ -158,15 +155,27 @@
                                 <div class="col-md-12">
                                     <table class ="table table-hover table-bordered">
                                         <thead>
-                                            <td>Service</td>
+                                            <td>Item</td>
+                                            <td>Unit</td>
+                                            <td>Qty</td>
                                             <td>Price</td>
                                             <td>Additional Charge</td>
-                                            <td>Stylist</td>
                                         </thead>
 
                                         <tr ng-repeat = "st in saletemp">
-                                            <td><% st.service_name %></td>
-                                            <td><b>₱<% st.price %></b></td>
+                                            <td><% st.otc_item_name %></td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input name="unit_of_measurement[]" type="number" class="form-control" value="1" id="unit_of_measurement[]">  
+                                                    <div class ="input-group-addon"><% st.otc_unit_of_measurement %></div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input name="quantity[]" type="number" class="form-control" value="1" id="quantity[]">
+                                                </div>
+                                            </td>
+                                            <td><b>₱<% st.otc_item_price %></b></td>
                                             <td>
                                                 <div class="input-group">
                                                     <div class ="input-group-addon">₱</div>
@@ -180,48 +189,30 @@
                                                     <br>
                                                     -->
                                                     <div> 
-                                                        {{ Form::select('stylist_id[]', $stylists, null, ['id' => 'stylist_id', 'class' => 'form-control']) }}
+                                                        
                                                     </div>
                                                 </div>
                                             </td>
-                                            <!--
-                                            <td><a href="#" class="btn btn-danger btn-xs" ng-click="removeServiceItem(st.id)">- remove</a></td>
-                                            -->
                                         </tr>
                                     </table>
                                 </div>
                             </div>
 
                             <hr>
+
+
                             <!-- Sales Payment -->
                             <div class="row">
+
+
                                 <div class="col-md-6">
                                     <div class = "form-group">
                                         <label for="amount_tendered" class="col-sm-4 control-label">Amount Tendered</label>
                                         <div class = "col-sm-8">
                                             <div class = "input-group">
                                                 <div class ="input-group-addon">₱</div>
-                                                <input type="number" step=".01" class="form-control" value="0" id="amount_tendered" ng-model="amount_tendered" ng-change="getChange(amount_tendered)" autocomplete="off" required ng-touched>
+                                                <input type="number" step=".01" class="form-control" value="0" id="amount_tendered" ng-model="amount_tendered" autocomplete="off" required ng-touched>
                                             </div>
-                                        </div>
-                                        <div>&nbsp;</div>
-                                        <div class="form-group">
-                                            <label for="items" class="col-sm-8 control-label">Item/s Used (Item/Consumed/Stock)</label>
-                                            <div class="input_fields_wrap">
-                                                <button class="add_field_button btn btn-sm btn-default">+ add more item</button>
-                                                <br>
-                                                <br>
-                                                <div> 
-                                                    {{ Form::select('item_id[]', $items, null, ['id' => 'item_id', 'class' => 'col-sm-6']) }}
-                                                    <input type="number" step=".01" name="item_consumed[]" id="item_consumed" class="col-sm-3" value="0">
-                                                    <input type="number" name="item_unit[]" id="item_unit" class="col-sm-3" value="0">
-                                                </div>
-                                            </div>
-                                            <!--
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="items" id="items" />
-                                            </div>
-                                            -->
                                         </div>
                                     </div>
                                 </div>
@@ -232,12 +223,24 @@
                                         <div class="col-sm-8">
                                             <p class="form-control-static"><b>₱ <%temptotal%></b></p>
                                         </div>
+                                            <a href="#" class="btn btn-xs btn-primary" ng-click="proceedToCheckout(false)">Compute</a>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="change" class="col-sm-4 control-label">Change</label>
                                         <div class="col-sm-8">
                                             <p class="form-control-static">₱ <%change%></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class = "form-group">
+                                        <label for="stylist_id" class="col-sm-4 control-label">Stylist</label>
+                                        <div class = "col-sm-8">
+                                            <div class = "input-group">
+                                                {{ Form::select('stylist_id', $stylists, null, ['id' => 'stylist_id', 'class' => 'form-control']) }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -265,7 +268,7 @@
                             <!-- Big checkout button -->
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a class="btn btn-success btn-block btn-sm" href="#" ng-click="proceedToCheckout()" ng-disabled="frmSales.$invalid">Proceed to checkout</a>
+                                    <a class="btn btn-success btn-block btn-sm" href="#" ng-click="proceedToCheckout(true)" ng-disabled="frmSales.$invalid">Proceed to checkout</a>
                                 </div>
                             </div><!-- /checkout -->
             			</div><!--/col-md-9-->
@@ -276,26 +279,6 @@
         </div>
     </div>
     @section('after_scripts')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var max_fields = 10; //maximum input boxes allowed
-            var wrapper = $(".input_fields_wrap"); //fields wrapper
-            var add_button = $(".add_field_button"); //Add button ID
-
-            var x = 1; //initial text box count
-            $(add_button).click(function(e) { //on add input button click
-                e.preventDefault();
-                if (x < max_fields) { //max input box allowed
-                    x++; //text box increment
-                    $(wrapper).append('<div>{{ Form::select("item_id[]", $items, null, ["id" => "items", "class" => "col-sm-6"]) }}<input type="number" step=".01" name="item_consumed[]" id="item_consumed" class="col-sm-3" value="0"><input type="number" name="item_unit[]" id="items" value="0" class="col-sm-3"><a href="#" class="remove_field">Remove</a></div>'); //add input box
-                }
-            });
-
-            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-                e.preventDefault(); $(this).parent('div').remove(); x--;
-            })
-        });
-    </script>
 
     <script type="text/javascript">
         $(document).ready(function() {

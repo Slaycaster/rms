@@ -35,10 +35,11 @@
             <ul class="treeview-menu">
               <li><a href="{{ url('branches') }}"><i class="fa fa-building-o"></i> <span>Branches</span></a></li>
               <li><a href="{{ url('stylists') }}"><i class="fa fa-cut"></i> <span>Stylists</span> </a></li>
-              <li><a href="{{ url('items') }}"><i class="fa fa-cube"></i> <span>Items</span> </a></li>
               <li><a href="{{ url('promos') }}"><i class="fa fa-asterisk"></i> <span>Discounts/Promos</span></a></li>
               <li><a href="{{ url('servicetypes') }}"><i class="fa fa-star-half-full"></i> <span>Types of Services</span></a></li>
               <li><a href="{{ url('services') }}"><i class="fa fa-book"></i> <span>Services</span></a></li>
+              <li><a href="{{ url('items') }}"><i class="fa fa-cube"></i> <span>Items</span> </a></li>
+              <li><a href="{{ url('otc_items') }}"><i class="fa fa-cube"></i> <span>Over-the-counter Items</span> </a></li>
               <!--
               <li><a href="{{ url('customers') }}"><i class="fa fa-user"></i> <span>Customers</span></a></li>
             -->
@@ -47,8 +48,10 @@
           @endrole
           
           <li><a href="{{ url(config('backpack.base.route_prefix').'/dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
-          <li><a href="{{ url('sales') }}"><i class="fa fa-money"></i> <span>Sales</span></a></li>
-          <li><a href="{{ url('reports') }}"><i class="fa fa-download"></i> <span>Reports</span></a></li>
+          <li><a href="{{ url('sales') }}"><i class="fa fa-money"></i> <span>Salon Sales</span></a></li>
+          <li><a href="{{ url('reports') }}"><i class="fa fa-download"></i> <span>Salon Reports</span></a></li>
+          <li><a href="{{ url('otc_sales') }}"><i class="fa fa-money"></i> <span>Over-the-counter Sales</span></a></li>
+          <li><a href="{{ url('reports/otc') }}"><i class="fa fa-download"></i> <span>Over-the-counter Reports</span></a></li>
 
 
 

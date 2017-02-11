@@ -3,24 +3,16 @@
 /*------------------------------------
 		Transactional Models
 ------------------------------------*/
-use App\Transaction;
-use App\Branch;
+use App\OTCTransaction;
 
 	$timestamp = time()+date("Z");
 	$today = gmdate("Y/m/d",$timestamp);
-	$date = Session::get('date', $today);
-	$branch_id = Session::get('branch_id', 1);
-	$branch = Branch::where('id', '=', $branch_id)->first();
-	$transactions = Transaction::whereBetween('created_at', [$date . ' 00:00:00', $date . ' 23:59:59'])
-						->where('branch_id', '=', $branch_id) 
+	$customer_name = Session::get('customer_name', ' ');
+	$transactions = OTCTransaction::where('customer', 'like', '%' . $customer_name . '%') 
 						->with('branch')
-						->with('sales')
+						->with('otc_sales')
+						->with('stylist')
 						->with('user')
-						->with('promo')
-						->with('sales.service')
-						->with('sales.used_stylists')
-						->with('used_items')
-						->with('used_items.item')
 						->get();
 
 	$total_transaction = 0;
@@ -30,7 +22,7 @@ use App\Branch;
 <!DOCTYPE html5>
 <html>
 	<head>
-		<title>Sales Report - {{$date}} | Maria Jose Salon</title>
+		<title>Over-the-counter Customer's Sales Report - {{$today}} | Maria Jose Salon</title>
 
 		<style type="text/css">
 		    table
@@ -73,7 +65,6 @@ use App\Branch;
 		        font-weight: bold;
 		        line-height: 1;
 		        color: #fff;
-		        text-align: center;
 		        white-space: nowrap;
 		        vertical-align: baseline;
 		        border-radius: .25em;
@@ -88,7 +79,7 @@ use App\Branch;
 		        text-align: right;
 		        font-size: 10px;
 		        position: fixed;
-		        bottom: 0px;
+		        bottom: 0px;	
 		        counter-increment:pages;
 		    }
 		    .pagenum:before 
@@ -102,7 +93,7 @@ use App\Branch;
 		<p style="text-align: center;">
 	        <normal style="font-size: 18px">Maria & Jose Salon</normal>
 	        <br>
-	        <strong>SALES REPORT<br>as of {{$date}}<br>{{$branch->branch_name}}</strong>
+	        <strong>Over-the-counter<br>CUSTOMER REPORT<br>as of {{$today}}</strong>
 	    </p>
 
 	    <table border="1" width="720">
@@ -110,12 +101,13 @@ use App\Branch;
 	    		<tr>
 		    		<td>#</td>
 		    		<td>Customer</td>
-		    		<td>Sales</td>
+		    		<td>Item/s</td>
 		    		<td>Total Price</td>
 		    		<td>Promo</td>
-		    		<td>Items Used</td>
+		    		<td>Stylist</td>
 		    		<td>Cashier</td>
 		    		<td>Time</td>
+		    		<td>Branch</td>
 	    		</tr>
 	    	</thead>
 	    	<tbody>
@@ -127,29 +119,27 @@ use App\Branch;
 		    			<td>{{$total_transaction}}</td>
 		    			<td><strong>{{$transaction->customer}}</strong><br>{{$transaction->customer_contact}}<br>{{$transaction->customer_address}}</td>
 		    			<td class="topalign">
-		    				<table border="1" width="100%">
+		    				<table border="1" width="250px">
 		    					<thead>
 		    						<tr>
-		    							<td width="40%"><strong>Service</strong></td>
+		    							<td width="50%"><strong>Item Name</strong></td>
+		    							<td width="10%"><strong>Unit</strong></td>
 		    							<td width="10%"><strong>Price</strong></td>
+		    							<td width="10%"><strong>Qty.</strong></td>
 		    							<td width="10%"><strong>Addtl.</strong></td>
-		    							<td width="40%"><strong>Stylist</strong></td>
+		    							<td width="10%"><strong>Subtotal</strong></td>
 		    						</tr>
 		    					</thead>
 
 		    					<tbody>
-				    				@foreach($transaction->sales as $sale)
+				    				@foreach($transaction->otc_sales as $sale)
 				    					<tr>
-				    						<td>{{$sale->service->service_name}}</td>
-				    						<td align="right">PHP {{$sale->price}}</td>
+				    						<td>{{$sale->otc_item->otc_item_name}}</td>
+				    						<td>{{ $sale->unit }} {{ $sale->otc_item->otc_unit_of_measurement }}</td>
+				    						<td align="right">PHP {{$sale->otc_item->otc_item_price}}</td>
+				    						<td align="right">{{$sale->quantity}}</td>
 				    						<td align="right">PHP {{$sale->additional_charge}}</td>
-				    						@foreach($sale->used_stylists as $used_stylist)
-					    						@if($transaction->promo_id > 0)
-							    					<td>{{$used_stylist->stylist->stylist_last_name}}, {{$used_stylist->stylist->stylist_first_name}} (PHP {{ round((($sale->price + $sale->additional_charge) * .10) - (($sale->price + $sale->additional_charge) * .10) * ($transaction->promo->promo_rate * .01), 2) }})</td>
-							    				@else
-						    						<td>{{$used_stylist->stylist->stylist_last_name}}, {{$used_stylist->stylist->stylist_first_name}} (PHP {{round((($sale->price + $sale->additional_charge) * .10), 2)}})</td>
-							    				@endif
-						    				@endforeach
+				    						<td align="right">PHP {{$sale->otc_item->otc_item_price * $sale->quantity + $sale->additional_charge}}</td>
 				    					</tr>
 				    				@endforeach
 		    					</tbody>
@@ -166,26 +156,8 @@ use App\Branch;
 		    			<?php
 		    				$total_price += $transaction->price;
 		    			?>
-		    			<td class="topalign">
-		    				<table border="1" width="100px">
-		    					<thead>
-		    						<tr>
-		    							<td width="60%"><strong>Item</strong></td>
-		    							<td width="20%"><strong>Consumed</strong></td>
-		    							<td width="20%"><strong>Qty</strong></td>
-		    						</tr>
-		    					</thead>
-
-		    					<tbody>
-				    				@foreach($transaction->used_items as $used_item)
-				    					<tr>
-				    						<td>{{$used_item->item->item_name}}</td>
-				    						<td>{{ $used_item->item_consumed }} {{ $used_item->item->unit_of_measurement }}</td>
-				    						<td align="right">{{$used_item->item_quantity}}</td>
-				    					</tr>
-				    				@endforeach
-		    					</tbody>
-		    				</table>
+		    			<td align="left">
+		    				{{$transaction->stylist->stylist_last_name}}, {{$transaction->stylist->stylist_first_name}} (PHP {{round(($transaction->price * .05), 2)}})
 		    			</td>
 		    			<td>{{$transaction->user->name}}</td>
 		    			<td>
@@ -195,6 +167,7 @@ use App\Branch;
 		    				?>
 		    				{{ $time_created_at }}
 		    			</td>
+		    			<td>{{ $transaction->branch->branch_name }}</td>
 		    		</tr>
 		    	@endforeach
 	    	</tbody>

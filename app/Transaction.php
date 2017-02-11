@@ -18,7 +18,7 @@ class Transaction extends Model
 	protected $table = 'transactions';
 	protected $primaryKey = 'id';
 	//protected $hidden = ['id'];
-	protected $fillable = ['customer_id', 'branch_id', 'promo_id', 'user_id', 'price'];
+	protected $fillable = ['customer', 'customer_contact', 'customer_address', 'branch_id', 'promo_id', 'user_id', 'price'];
 
 	/*
 	-----------------------------------------------------

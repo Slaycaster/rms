@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsedStylistsTable extends Migration
+class CreateOtcItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateUsedStylistsTable extends Migration
      */
     public function up()
     {
-        Schema::create('used_stylists', function (Blueprint $table) {
+        Schema::create('otc_items', function (Blueprint $table) {    
             $table->increments('id');
-            $table->integer('stylist_id');
-            $table->integer('sale_id');
+            $table->string('otc_item_name');
+            $table->string('otc_unit_of_measurement');
+            $table->integer('otc_item_stock');
+            $table->double('otc_item_price');
+            $table->integer('branch_id');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateUsedStylistsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('used_stylists');
+        Schema::dropIfExists('otc_items');
     }
 }

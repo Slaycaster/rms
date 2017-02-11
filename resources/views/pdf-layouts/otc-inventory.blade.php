@@ -1,6 +1,6 @@
 <?php
 
-use App\Item;
+use App\OTCItem;
 use App\Branch;
 
 	$timestamp = time()+date("Z");
@@ -8,7 +8,7 @@ use App\Branch;
 	$date = Session::get('date', $today);
 	$branch_id = Session::get('branch_id', 1);
 
-	$items = Item::where('branch_id', '=', $branch_id)->orderBy('item_stock', 'DESC')->get();
+	$items = OTCItem::where('branch_id', '=', $branch_id)->orderBy('otc_item_stock', 'DESC')->get();
 	$branch = Branch::where('id', '=', $branch_id)->first();
 	$total_items = 0;
 	$total_stock_count = 0;
@@ -17,7 +17,7 @@ use App\Branch;
 <!DOCTYPE html5>
 <html>
 	<head>
-		<title>Inventory Report - {{$date}} | Maria Jose Salon</title>
+		<title>Over-the-counter Inventory Report - {{$date}} | Maria Jose Salon</title>
 
 		<style type="text/css">
 		    table
@@ -85,7 +85,7 @@ use App\Branch;
 		<p style="text-align: center;">
 	        <normal style="font-size: 18px">Maria & Jose Salon</normal>
 	        <br>
-	        <strong>INVENTORY REPORT<br>as of {{$today}}<br>{{$branch->branch_name}}</strong>
+	        <strong>OVER THE COUNTER<br>INVENTORY REPORT<br>as of {{$today}}<br>{{$branch->branch_name}}</strong>
 	    </p>
 
 	    <table border="1" width="720">
@@ -94,6 +94,7 @@ use App\Branch;
 		    		<td>#</td>
 		    		<td width="400">Item Name</td>
 		    		<td>Unit of Measurement</td>
+		    		<td>Item Price</td>
 		    		<td align="right">Stock</td>
 	    		</tr>
 	    	</thead>
@@ -104,11 +105,12 @@ use App\Branch;
 		    				$total_items += 1;
 		    			?>
 		    			<td>{{$total_items}}</td>
-		    			<td>{{$item->item_name}}</td>
-		    			<td>{{$item->unit_of_measurement}}</td>
-		    			<td align="right">{{$item->item_stock}}</td>
+		    			<td>{{$item->otc_item_name}}</td>
+		    			<td>{{$item->otc_unit_of_measurement}}</td>
+		    			<td>{{$item->otc_item_price}}</td>
+		    			<td align="right">{{$item->otc_item_stock}}</td>
 		    			<?php
-		    				$total_stock_count += $item->item_stock;
+		    				$total_stock_count += $item->otc_item_stock;
 		    			?>
 		    		</tr>
 		    	@endforeach

@@ -29,12 +29,20 @@ Route::group(['middleware' => 'admin'], function()
 		CRUD::resource('promos', 'PromoController');
 		CRUD::resource('customers', 'CustomerController');
 		CRUD::resource('items', 'ItemController');
+		CRUD::resource('otc_items', 'OTCItemController');
 	});
 	
 	Route::get('sales', 'SaleController@index');	
+	Route::get('otc_sales', 'SaleController@otc');	
 	Route::get('reports', 'ReportsController@index');
 	Route::get('reports/sales/today', 'ReportsController@today');
 	Route::get('reports/sales/branch', 'ReportsController@branch');
 	Route::get('reports/sales/customer', 'ReportsController@customer');
 	Route::get('reports/inventory', 'ReportsController@inventory');
+
+	Route::get('reports/otc', 'ReportsController@otc_index');
+	Route::get('reports/otc_sales/today', 'ReportsController@today_otc');
+	Route::get('reports/otc_sales/branch', 'ReportsController@branch_otc');
+	Route::get('reports/otc_sales/customer', 'ReportsController@customer_otc');
+	Route::get('reports/inventory/otc', 'ReportsController@inventory_otc');
 });
