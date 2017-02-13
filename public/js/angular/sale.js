@@ -150,6 +150,8 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
        $http.post('api/transactions/save', {
             sales: $scope.saletemp,
             customer: document.getElementById('customer').value,
+            customer_contact: document.getElementById('customer_contact').value,
+            customer_address: document.getElementById('customer_address').value,
             branch_id: document.getElementById('branch_id').value,
             user_id: document.getElementById('user_id').value,
             stylist_id: stylist_id,
