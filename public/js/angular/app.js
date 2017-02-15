@@ -1,4 +1,4 @@
-var app = angular.module('rms', ['numberFixedModule'], function($interpolateProvider) {
+var app = angular.module('rms', ['numberFixedModule', 'angularModalService'], function($interpolateProvider) {
         $interpolateProvider.startSymbol('<%');
         $interpolateProvider.endSymbol('%>');
 });

@@ -1,4 +1,4 @@
-app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http) {
+app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http, ModalService) {
 
     /*----------------------------------------------------
             Holds all services in backend data

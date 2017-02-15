@@ -22,6 +22,7 @@ class APISalesController extends Controller
 {
     public function transactionCheckout()
     {
+        dd(Request::input('customer_contact') . ' ' . Request::input('customer_address'));
         $item_id = Request::input('item_id');
         $item_unit = Request::input('item_unit');
         $item_consumed = Request::input('item_consumed');

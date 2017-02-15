@@ -16,6 +16,7 @@
     {{ Html::script('js/angular/angular.min.js', array('type' => 'text/javascript')) }}
     {{ Html::script('js/angular/app.js', array('type' => 'text/javascript')) }}
     {{ Html::script('js/angular/sale.js', array('type' => 'text/javascript')) }}
+    {{ Html::script('bower_components\angular-modal-service\dst\angular-modal-service.min.js', array('type' => 'text/javascript')) }}
 @endsection
 
 @section('content')
