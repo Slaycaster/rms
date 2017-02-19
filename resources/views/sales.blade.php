@@ -10,13 +10,6 @@
         <li class="active">Sales</li>
       </ol>
     </section>
-    <!-- Lodash JS -->
-    {{ Html::script('js/lodash/lodash.js', array('type' => 'text/javascript')) }}
-    <!-- AngularJS~ -->
-    {{ Html::script('js/angular/angular.min.js', array('type' => 'text/javascript')) }}
-    {{ Html::script('js/angular/app.js', array('type' => 'text/javascript')) }}
-    {{ Html::script('js/angular/sale.js', array('type' => 'text/javascript')) }}
-    {{ Html::script('bower_components\angular-modal-service\dst\angular-modal-service.min.js', array('type' => 'text/javascript')) }}
 @endsection
 
 @section('content')
@@ -269,6 +262,26 @@
                                     <a class="btn btn-success btn-block btn-sm" href="#" ng-click="proceedToCheckout()" ng-disabled="frmSales.$invalid">Proceed to checkout</a>
                                 </div>
                             </div><!-- /checkout -->
+
+                            <!--Modal -->
+                            <script type="text/ng-template" id="modal.html">
+                                <div class="modal fade">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" ng-click="closeModal(true)" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Cannot proceed to transaction...</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p><% title %></p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" ng-click="closeModal(true)" class="btn btn-primary btn-block" data-dismiss="modal">Ok</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </script>
             			</div><!--/col-md-9-->
                 </form>
             		</div>
@@ -277,6 +290,14 @@
         </div>
     </div>
     @section('after_scripts')
+
+    <!-- Lodash JS -->
+    {{ Html::script('js/lodash/lodash.js', array('type' => 'text/javascript')) }}
+    <!-- AngularJS~ -->
+    {{ Html::script('js/angular/app.js', array('type' => 'text/javascript')) }}
+    {{ Html::script('js/angular/sale.js', array('type' => 'text/javascript')) }}
+    {{ Html::script('bower_components\angular-modal-service\dst\angular-modal-service.min.js', array('type' => 'text/javascript')) }}
+
     <script type="text/javascript">
         $(document).ready(function() {
             var max_fields = 10; //maximum input boxes allowed

@@ -1,4 +1,4 @@
-app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http, ModalService) {
+app.controller('SaleCtrl', ['$scope', '$http', 'ModalService', function ($scope, $http, ModalService) {
 
     /*----------------------------------------------------
             Holds all services in backend data
@@ -21,6 +21,9 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http, ModalSer
             Holds services added to 'cart'
     ----------------------------------------------------*/
     $scope.saletemp = [ ];
+
+    //Holds message to the modal
+    $scope.message = '';
     
     $scope.temptotal = 0;
     $scope.amount_tendered = 0;
@@ -125,6 +128,10 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http, ModalSer
 
     $scope.proceedToCheckout = function(checkout)
     {
+        var notProceeding = false;
+
+        $scope.message = '';
+        
         var item_id = [];
         var item_unit = [];
         var item_consumed = [];
@@ -146,27 +153,73 @@ app.controller('SaleCtrl', ['$scope', '$http', function ($scope, $http, ModalSer
         {
             additional_arr2.push(document.getElementsByName('additional_charge[]')[k].value);
         }
-        
-       $http.post('api/transactions/save', {
-            sales: $scope.saletemp,
-            customer: document.getElementById('customer').value,
-            customer_contact: document.getElementById('customer_contact').value,
-            customer_address: document.getElementById('customer_address').value,
-            branch_id: document.getElementById('branch_id').value,
-            user_id: document.getElementById('user_id').value,
-            stylist_id: stylist_id,
-            promo_id: document.getElementById('promo_id').value,
-            price: $scope.temptotal,
-            additional_charge: additional_arr2,
-            item_id: item_id,
-            item_unit: item_unit,
-            item_consumed: item_consumed
-       }).success(function(data, status, headers, config, response) {
-            console.log(data);
-            window.location.reload(true);
-       });
+
+        if ($scope.change < 0)
+        {
+            notProceeding = true;
+            $scope.message += 'Insufficient amount tendered!\n';
+        }
+
+        if ($scope.amount_tendered <= 0)
+        {
+            notProceeding = true;
+            $scope.message += 'Amount tendered cannot be empty!\n';   
+        }
+
+        if(notProceeding)
+        {
+            //Show a modal
+            ModalService.showModal({
+            templateUrl: "modal.html",
+            controller: "ModalController",
+            inputs: {
+                title: $scope.message
+            }
+            }).then(function(modal) {
+
+                //it's a bootstrap element, use 'modal' to show it
+                modal.element.modal();
+                modal.close.then(function(result) {
+                  console.log(result);
+                });
+            });
+        }
+        else
+        {
+            //Save the transaction
+           $http.post('api/transactions/save', {
+                sales: $scope.saletemp,
+                customer: document.getElementById('customer').value,
+                customer_contact: document.getElementById('customer_contact').value,
+                customer_address: document.getElementById('customer_address').value,
+                branch_id: document.getElementById('branch_id').value,
+                user_id: document.getElementById('user_id').value,
+                stylist_id: stylist_id,
+                promo_id: document.getElementById('promo_id').value,
+                price: $scope.temptotal,
+                additional_charge: additional_arr2,
+                item_id: item_id,
+                item_unit: item_unit,
+                item_consumed: item_consumed
+           }).success(function(data, status, headers, config, response) {
+                console.log(data);
+                window.location.reload(true);
+           });
+        }
        
+        
     }
 
     $scope.init();
+    
+}]);
+
+app.controller('ModalController', ['$scope', 'title', 'close', function($scope, title, close) {
+
+    $scope.title = title;
+
+  $scope.close = function(result) {
+      close(result, 500); // close, but give 500ms for bootstrap to animate
+  };
+
 }]);
