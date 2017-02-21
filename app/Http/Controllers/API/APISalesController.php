@@ -119,4 +119,14 @@ class APISalesController extends Controller
     	}
     	return json_encode(["max_transaction_id" => $transaction_max], JSON_PRETTY_PRINT);
     }
+
+    public function getMaxTransactionNumber()
+    {
+        $transaction_max = Transaction::max('id');
+        if ($transaction_max == null)
+        {
+            $transaction_max = 0;
+        }
+        return json_encode(["max_transaction_id" => $transaction_max], JSON_PRETTY_PRINT);
+    }
 }

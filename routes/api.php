@@ -22,12 +22,12 @@ Route::get('/servicebytype/{id}', 'API\APIServiceController@byServiceType');
 
 Route::get('/servicetypes', 'API\APIServiceController@servicetype');
 
-Route::get('/transactions/max/{id}', 'API\APISalesController@getTransactionNumber');
+Route::get('/transactions/max', 'API\APISalesController@getMaxTransactionNumber');
 Route::post('/transactions/save', 'API\APISalesController@transactionCheckout');
 
 /*-------------------------------------------------------------------------
 		Over the Counter
 --------------------------------------------------------------------------*/
 Route::get('/otc_items/{id}', 'API\APIOTCSalesController@otc_items');
-Route::get('/otc_transactions/max/{id}', 'API\APIOTCSalesController@getTransactionNumber');
+Route::get('/otc_transactions/max', 'API\APIOTCSalesController@getMaxTransactionNumber');
 Route::post('/otc_transactions/save', 'API\APIOTCSalesController@transactionCheckout');
