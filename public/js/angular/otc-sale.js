@@ -22,7 +22,7 @@ app.controller('SaleCtrl', ['$scope', '$http', 'ModalService', function ($scope,
     $scope.change = 0;
     $scope.transaction_id = 0;
     
-    $http.get('api/otc_items/').success(function(data) {
+    $http.get('api/otc_items/' + document.getElementById('branch_id').value).success(function(data) {
         $scope.otcitemsdata = data;
     });   
     
