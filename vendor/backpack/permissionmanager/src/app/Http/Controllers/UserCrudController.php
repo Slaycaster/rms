@@ -16,6 +16,7 @@ class UserCrudController extends CrudController
         $this->crud->setModel(config('backpack.permissionmanager.user_model'));
         $this->crud->setEntityNameStrings(trans('backpack::permissionmanager.user'), trans('backpack::permissionmanager.users'));
         $this->crud->setRoute(config('backpack.base.route_prefix').'/user');
+        $this->crud->enableAjaxTable();
 
         $this->crud->setColumns([
             [
@@ -149,7 +150,7 @@ class UserCrudController extends CrudController
         }
 
         // update the row in the db
-        $this->crud->update(\Request::get('id'), $dataToUpdate);
+        $this->crud->update(\Request::get($this->crud->model->getKeyName()), $dataToUpdate);
 
         // show a success message
         \Alert::success(trans('backpack::crud.update_success'))->flash();
