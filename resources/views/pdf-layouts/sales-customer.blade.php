@@ -121,7 +121,7 @@ use App\Transaction;
 		    			<?php
 		    				$total_transaction += 1;
 		    			?>
-		    			<td>{{$total_transaction}}</td>
+		    			<td>{{ str_pad($transaction->invoice_id, 5, 0, STR_PAD_LEFT) }}</td>
 		    			<td><strong>{{$transaction->customer}}</strong><br>{{$transaction->customer_contact}}<br>{{$transaction->customer_address}}</td>
 		    			<td class="topalign">
 		    				<table border="1" width="100%">

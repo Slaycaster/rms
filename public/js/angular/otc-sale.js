@@ -10,6 +10,11 @@ app.controller('SaleCtrl', ['$scope', '$http', 'ModalService', function ($scope,
     ----------------------------------------------------*/
     $scope.saletemp = [ ];
 
+    /*----------------------------------------------------
+            Disables the button or not
+    ----------------------------------------------------*/
+    $scope.isDisabled = false;
+
      //Holds message to the modal
     $scope.message = '';
     
@@ -29,7 +34,7 @@ app.controller('SaleCtrl', ['$scope', '$http', 'ModalService', function ($scope,
     $scope.init = function()
     {
         $scope.saletemp = [ ];
-        $http.get('api/otc_transactions/max').success(function(data) {
+        $http.get('api/otc_transactions/max/'+document.getElementById('branch_id').value).success(function(data) {
             $scope.transaction_id = parseInt(data.max_transaction_id) + 1;
         });
         $scope.temptotal = 0;
@@ -115,6 +120,8 @@ app.controller('SaleCtrl', ['$scope', '$http', 'ModalService', function ($scope,
             $scope.temptotal += parseFloat(document.getElementsByName('additional_charge[]')[i].value);
         }
 
+        $scope.isDisabled = true;
+
         $scope.change = parseFloat($scope.amount_tendered-$scope.temptotal);
 
         if (checkout == true)
@@ -148,7 +155,7 @@ app.controller('SaleCtrl', ['$scope', '$http', 'ModalService', function ($scope,
                     title: $scope.message
                 }
                 }).then(function(modal) {
-
+                    $scope.isDisabled = false;
                     //it's a bootstrap element, use 'modal' to show it
                     modal.element.modal();
                     modal.close.then(function(result) {
@@ -158,7 +165,10 @@ app.controller('SaleCtrl', ['$scope', '$http', 'ModalService', function ($scope,
             }
             else
             { 
+                $scope.isDisabled = true;
+                //Save the transaction
                $http.post('api/otc_transactions/save', {
+                    invoice_id: $scope.transaction_id,
                     sales: $scope.saletemp,
                     customer: document.getElementById('customer').value,
                     customer_contact: document.getElementById('customer_contact').value,

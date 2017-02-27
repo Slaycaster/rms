@@ -259,7 +259,8 @@
                             <!-- Big checkout button -->
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a class="btn btn-success btn-block btn-sm" href="#" ng-click="proceedToCheckout()" ng-disabled="frmSales.$invalid">Proceed to checkout</a>
+                                    <center><i class="fa fa-spinner fa-spin" ng-show="isDisabled" style="font-size:24px"></i></center>
+                                    <a class="btn btn-success btn-block btn-sm" href="#" ng-click="proceedToCheckout()" ng-disabled="isDisabled">Proceed to checkout</a>
                                 </div>
                             </div><!-- /checkout -->
 

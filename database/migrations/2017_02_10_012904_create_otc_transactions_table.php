@@ -15,6 +15,7 @@ class CreateOtcTransactionsTable extends Migration
     {
         Schema::create('otc_transactions', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('invoice_id');
             $table->string('customer');
             $table->string('customer_contact')->nullable();
             $table->string('customer_address')->nullable();

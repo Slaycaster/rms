@@ -18,7 +18,7 @@ class OTCTransaction extends Model
 	protected $table = 'otc_transactions';
 	protected $primaryKey = 'id';
 	//protected $hidden = ['id'];
-	protected $fillable = ['customer', 'customer_contact', 'customer_address', 'branch_id', 'promo_id', 'user_id', 'price', 'stylist_id'];
+	protected $fillable = ['invoice_id', 'customer', 'customer_contact', 'customer_address', 'branch_id', 'promo_id', 'user_id', 'price', 'stylist_id'];
 
 	/*
 	-----------------------------------------------------

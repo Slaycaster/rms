@@ -33,6 +33,7 @@ class APISalesController extends Controller
             Save the current transaction to the database
         ---------------------------------------------------*/
         $transaction = new Transaction();
+        $transaction->invoice_id = Request::input('invoice_id');
         $transaction->customer = Request::input('customer');
         $transaction->customer_contact = Request::input('customer_contact');
         $transaction->customer_address = Request::input('customer_address');
@@ -111,7 +112,7 @@ class APISalesController extends Controller
 
     public function getTransactionNumber($id)
     {
-    	$transaction_max = Transaction::where('branch_id', '=', $id)->max('id');
+    	$transaction_max = Transaction::where('branch_id', '=', $id)->max('invoice_id');
     	if ($transaction_max == null)
     	{
     		$transaction_max = 0;
